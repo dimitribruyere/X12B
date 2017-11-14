@@ -34,10 +34,10 @@
       var texts2 = document.getElementById("string2").value;
       
       //Process
-      var text = ed(texts1, texts2);
+      var text = lcs(texts1, texts2);
       
       //Output
-      document.getElementById("reponse").innerHTML = "String 1 = "+texts1+"<br/>String 2 = "+texts2;
+      document.getElementById("reponse").innerHTML = text;
     }
   </script>
 </body>
