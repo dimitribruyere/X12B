@@ -2,8 +2,11 @@ function classic(str1, str2)
 {
   var length1 = str1.length + 1;
   var length2 = str2.length + 1;
+  //array contains the weight matrix
   var array = new Array(length1);
+  //arrowarray contains the arrow matrix
   var arrowarray = new Array(length1);
+  //disparray contains array to string
   var disparray = "\b"+str2+"<br>";
 
   for( var i = 0; i < length1; i++)
@@ -79,7 +82,7 @@ function dynamicprog(str1,str2,length1,length2,disparray,array,arrowarray)
         var last = array[i-1][j-1]+1;
       }
       var min = Math.min(haut,(Math.min(gauche,last)));
-      array[i][j]=Math.min(haut,(Math.min(gauche,last)));  
+      array[i][j] = min; 
       if(min == haut)
       {
         arrowarray[i][j]='H';
