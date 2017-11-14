@@ -9,7 +9,7 @@
 
   <!-- This line removes any default padding and style. 
        You might only need one of these values set. -->
-  <style> body {padding: 50px; margin: 0;} p {font-size:2em;}</style>
+  <style> body {padding: 50px; margin: 0;} p {font-size:1.8em;}</style>
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -18,15 +18,26 @@
 </head>
 
 <body>
+  <h1 class="glyphicon glyphicon-th-large">Edit Distance Algorithms</h1>
   <br/>
     String 1 <input class="form-control" type="text" id="string1"/><br/>
     String 2 <input class="form-control" type="text" id="string2"/><br/>
-    <button class="btn btn-primary" onclick="process()">Start</button>
+    
+    <input type="radio" name="algotype" value="lcs" checked> LCS <br/>
+    <input type="radio" name="algotype" value="classic"> Classic ED <br/>
+    <input type="radio" name="algotype" value="rec"> Recursive ED <br/>
+    
+    <button class="btn btn-info" onclick="process()">Process</button>
+    <button class="btn btn-warning" onclick="reset()">Reset</button>
   <br/>
   <br/>
   <p id="reponse">Reponse</p>
   
   <script>
+    function reset()
+    {
+      document.getElementById("reponse").innerHTML = Réponse;
+    }
     function process()
     {
       //Input
@@ -34,7 +45,27 @@
       var texts2 = document.getElementById("string2").value;
       
       //Process
-      var text = lcs(texts1, texts2);
+      
+      var algotype = $('input[name=algotype]:checked').val();
+      
+      console.log(algotype);
+      
+      var text;
+      switch(algotype)
+      {
+        case "lcs":
+          text = lcs(texts1, texts2);
+        break;
+        case "classic":
+          text = classic(texts1, texts2);
+        break;
+        case "rec":
+          text = rec(texts1, texts2);
+        break;
+        default:
+          text = "Error:Algorithm type undefined";
+        break;
+      }
       
       //Output
       document.getElementById("reponse").innerHTML = text;
