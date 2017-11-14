@@ -11,8 +11,8 @@ function classic(str1, str2)
 
   for( var i = 0; i < length1; i++)
   {
-    array[i] = new Array(length2);
-    arrowarray[i] = new Array(length2+1);
+    array[i] = new Array(length2); //The array has now 2 dimension
+    arrowarray[i] = new Array(length2);
   }
  
   for( var i = 0; i < length1; i++)
@@ -21,11 +21,11 @@ function classic(str1, str2)
       {
         if(j==0|| i==0)
         {
-          array[i][j] = i+j;
+          array[i][j] = i+j; //Set the extremity of the array
         }
         else
         {
-          array[i][j] = 0;
+          array[i][j] = 0; //The other part is set to 0
         }
       }
 
@@ -73,7 +73,7 @@ function dynamicprog(str1,str2,length1,length2,disparray,array,arrowarray)
       
       var gauche = array[i][j-1]+1;
            
-      if (str1.charAt(i-1) == str2.charAt(j-1))
+      if (str1.charAt(i-1) == str2.charAt(j-1)) //If the 2 letter are the same, we wont add the cost of this computation
       {
         var last = array[i-1][j-1];
       }
@@ -81,11 +81,12 @@ function dynamicprog(str1,str2,length1,length2,disparray,array,arrowarray)
       {
         var last = array[i-1][j-1]+1;
       }
-      var min = Math.min(haut,(Math.min(gauche,last)));
+      var min = Math.min(haut,(Math.min(gauche,last))); //We take the minimun between the upper case, left case and upper left case
       array[i][j] = min; 
-      if(min == haut)
+        
+      if(min == haut)   //This part deserve to fulfill the arrow array to allow backtracking if we want to know the path
       {
-        arrowarray[i][j]='H';
+        arrowarray[i][j]='H'; 
       }
       else if(min == gauche)
       {
@@ -97,5 +98,5 @@ function dynamicprog(str1,str2,length1,length2,disparray,array,arrowarray)
       }
     }
   }
-  return array[length1-1][length2-1];
+  return array[length1-1][length2-1];  //We return the last element visited, which is the cost of the ED
 }
