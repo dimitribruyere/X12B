@@ -9,9 +9,36 @@
 
   <!-- This line removes any default padding and style. 
        You might only need one of these values set. -->
-  <style> body {padding: 0; margin: 0;} </style>
+  <style> body {padding: 50px; margin: 0;} p {font-size:2em;}</style>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 </head>
 
 <body>
+  <br/>
+    String 1 <input class="form-control" type="text" id="string1"/><br/>
+    String 2 <input class="form-control" type="text" id="string2"/><br/>
+    <button class="btn btn-primary" onclick="process()">Start</button>
+  <br/>
+  <br/>
+  <p id="reponse">Reponse</p>
+  
+  <script>
+    function process()
+    {
+      //Input
+      var texts1 = document.getElementById("string1").value;
+      var texts2 = document.getElementById("string2").value;
+      
+      //Process
+      var text = ed(texts1, texts2);
+      
+      //Output
+      document.getElementById("reponse").innerHTML = "String 1 = "+texts1+"<br/>String 2 = "+texts2;
+    }
+  </script>
 </body>
 </html>
