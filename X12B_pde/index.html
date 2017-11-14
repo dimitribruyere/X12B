@@ -19,8 +19,6 @@
   <style> body {padding: 50px; margin: 0;} p {font-size:1.8em;}</style>
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  <script language="javascript" type="text/javascript" src="classic.js"></script>
-  <script language="javascript" type="text/javascript" src="lcs.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
@@ -34,7 +32,11 @@
     
     <input type="radio" name="algotype" value="lcs" checked> LCS <br/>
     <input type="radio" name="algotype" value="classic"> Classic ED <br/>
-    <input type="radio" name="algotype" value="rec"> Recursive ED <br/>
+    <input type="radio" name="algotype" value="rec"> Pure recursive ED <br/>
+    <input type="radio" name="algotype" value="divide"> Divide Conquer ED <br/>
+    <input type="radio" name="algotype" value="branch"> Branch & Bound ED <br/>
+    <input type="radio" name="algotype" value="greedy"> Approximated Greedy ED <br/>
+    <input type="radio" name="algotype" value="approx"> Approximated Classic ED <br/>
     
     <button class="btn btn-info" onclick="process()">Process</button>
     <button class="btn btn-warning" onclick="reset()">Reset</button>
@@ -70,6 +72,18 @@
         break;
         case "rec":
           text = rec(texts1, texts2);
+        break;
+        case "divide":
+          text = divide_conquer(texts1, texts2);
+        break;
+        case "branch":
+          text = branch_bound(texts1, texts2);
+        break;
+        case "greedy":
+          text = approx_greedy(texts1, texts2);
+        break;
+        case "approx":
+          text = approx_classic(texts1, texts2);
         break;
         default:
           text = "Error:Algorithm type undefined";
