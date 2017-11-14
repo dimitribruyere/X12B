@@ -1,13 +1,11 @@
 function rec(ch1, ch2)
 {
-  console.log(ch1.length+' '+ch2.length);
   return recurrence(ch1,ch2,ch1.length,ch2.length);
 }
 
 
 function recurrence(ch1,ch2,length1,length2)
 {
-  console.log(ch1+' '+ch2);
   if(length1==0){
     return length2;
   }
@@ -16,7 +14,6 @@ function recurrence(ch1,ch2,length1,length2)
     return length1;
   }
     
- // console.log(ch1.charAt(length1-1)+' '+ch2.charAt(length2-1));
   if(ch1.charAt(length1-1)==ch2.charAt(length2-1))
   { 
     return recurrence(ch1,ch2,length1-1,length2-1);
