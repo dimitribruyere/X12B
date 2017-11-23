@@ -1,14 +1,21 @@
 function setup()
 {
-
+  createCanvas(800, 600);
 }
 
 function draw()
 {
-  
+  background(120);
+  var texts1 = document.getElementById("string1").value;
+  var texts2 = document.getElementById("string2").value;
+  textSize(30);
+
+  text(texts1, 10, 50);
+  text(texts2, 10, 100);
 }
 
-function ed(s1,s2)
+
+function ed(s1, s2)
 {
 
   return "Reponse a retourner";
