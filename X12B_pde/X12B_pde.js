@@ -1,17 +1,19 @@
 function setup()
 {
-  createCanvas(800, 600);
+  createCanvas(800, 800);
+  background(120);
 }
 
 function draw()
 {
-  background(120);
-  var texts1 = document.getElementById("string1").value;
-  var texts2 = document.getElementById("string2").value;
-  textSize(30);
+  //var texts1 = document.getElementById("string1").value;
+  //var texts2 = document.getElementById("string2").value;
+  //textSize(30);
 
-  text(texts1, 10, 50);
-  text(texts2, 10, 100);
+  //text(texts1, 10, 50);
+  //text(texts2, 10, 100);
+  var algoName = $('input[name=algotype]:checked').val();
+  // displayAlgo(algoName);
 }
 
 
@@ -21,16 +23,25 @@ function ed(s1, s2)
   return "Reponse a retourner";
 }
 
-function lcs(ch1, ch2) {
-  var n = ch1.length-1;
-  var m = ch2.length-1;
-  if (ch1==="" || ch2==="") {
-    return 0;
-  }   
-
-  if (ch1.charAt(n) === ch2.charAt(m)) {
-    return (1+lcs(ch1.substr(0, n), ch2.substr(0, m)));
-  } else {
-    return max(lcs(ch1.substr(0, n+1), ch2.substr(0, m)), lcs(ch1.substr(0, n), ch2.substr(0, m+1)));
-  }
-}
+//function displayAlgo(algoName)
+//{
+//  switch (algoName) {
+//  case "lcs":
+//    break;
+//  case "classic":
+//    text = classic(texts1, texts2);
+//    break;
+//  case "rec":
+//    break;
+//  case "divide":
+//    break;
+//  case "branch":
+//    break;
+//  case "greedy":
+//    break;
+//  case "approx":
+//    break;
+//  default:
+//    break;
+//  }
+//}
