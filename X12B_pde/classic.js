@@ -45,23 +45,23 @@ function dynamicprog(str1, str2, length1, length2, array, arrowarray)
 
       if (str1.charAt(i-1) == str2.charAt(j-1)) //If the 2 letter are the same, we wont add the cost of this computation
       {
-        var last = array[i-1][j-1];
+        var hautgauche = array[i-1][j-1];
       } else
       {
-        var last = array[i-1][j-1]+1;
+        var hautgauche = array[i-1][j-1]+1;
       }
-      var min = Math.min(haut, (Math.min(gauche, last))); //We take the minimun between the cell above, the cell on the left and the cell on the top left
+      var min = Math.min(haut, (Math.min(gauche, hautgauche))); //We take the minimun between the cell above, the cell on the left and the cell on the top left
       array[i][j] = min; 
 
-      if (min == haut)   //Here we fill the arrow array to know the path
-      {
-        arrowarray[i][j]='H';
-      } else if (min == gauche)
-      {
-        arrowarray[i][j]='G';
-      } else
+      if (min == hautgauche)   //Here we fill the arrow array to know the path
       {
         arrowarray[i][j]='D';
+      } else if (min == gauche)
+      {
+        arrowarray[i][j]='H';
+      } else
+      {
+        arrowarray[i][j]='G';
       }
     }
   }
@@ -119,4 +119,3 @@ function displayArrow(direction, x, y) {
     break;
   }
 }
-
