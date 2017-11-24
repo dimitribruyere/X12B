@@ -53,10 +53,18 @@
     }
     function process()
     {
+      var timerStart;
+      var timerEnd;
+      var computationTime;
+      
+      timerStart = new Date();
+      
+      
       //Input
       var texts1 = document.getElementById("string1").value;
       var texts2 = document.getElementById("string2").value;
       
+     
       //Process
       
       var algotype = $('input[name=algotype]:checked').val();
@@ -93,8 +101,15 @@
       }
       
       //Output
-      document.getElementById("reponse").innerHTML = text;
+      timerEnd = new Date();
+      computationTime = timerEnd - timerStart;
+      document.getElementById("reponse").innerHTML = "Distance d'edition : "+text + " et temps de calcul : " + computationTime +" ms." ;
+      
+     
     }
+    
+   
+
   </script>
 </body>
 </html>

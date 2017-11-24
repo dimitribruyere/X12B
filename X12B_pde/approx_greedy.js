@@ -12,3 +12,5 @@ function approx_greedy(str1, str2)
   sum += Math.abs(str1.length-str2.length);
   return sum;
 }
+
+

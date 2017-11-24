@@ -1,13 +1,14 @@
+
 function classic(str1, str2)
 {
+
   var length1 = str1.length + 1;
   var length2 = str2.length + 1;
   //array contains the weight matrix
   var array = new Array(length1);
   //arrowarray contains the arrow matrix
   var arrowarray = new Array(length1);
-  //disparray contains array to string
-  var disparray = "\b"+str2+"<br>";
+
 
   for ( var i = 0; i < length1; i++)
   {
@@ -29,39 +30,10 @@ function classic(str1, str2)
     }
   }
 
-  return dynamicprog(str1, str2, length1, length2, disparray, array, arrowarray);
+  return dynamicprog(str1, str2, length1, length2, array, arrowarray);
 }
 
-function dispArray(str1, str2, length1, length2, disparray, array, arrowarray)
-{
-  for (i = 0; i < length1; i ++ )
-  {
-
-    for (j = 0; j < length2; j ++)
-    {
-      disparray = disparray + array[i][j] + ' ';
-    }
-    disparray += "<br>";
-  }
-
-  disparray += "<br>";
-}
-
-function dispArrowarray(str1, str2, length1, length2, disparray, array, arrowarray)
-{
-  for (i = 1; i < length1; i ++ )
-  {
-    for (j = 1; j < length2; j ++)
-    {
-      disparray = disparray + arrowarray[i][j] + ' ';
-    }
-    disparray += "<br>";
-  }
-
-  disparray += "<br>";
-}
-
-function dynamicprog(str1, str2, length1, length2, disparray, array, arrowarray)
+function dynamicprog(str1, str2, length1, length2, array, arrowarray)
 {
   for (var i = 1; i < length1; i++)
   {
@@ -93,17 +65,17 @@ function dynamicprog(str1, str2, length1, length2, disparray, array, arrowarray)
       }
     }
   }
-  displayClassic(str1, str2, length1, length2, disparray, array, arrowarray);
+
+  displayClassic(str1, str2, length1, length2, array, arrowarray);
   return array[length1-1][length2-1];  //We return the last element visited, which is the cost of the ED
 }
 
-function displayClassic(str1, str2, length1, length2, disparray, array, arrowarray) {
+function displayClassic(str1, str2, length1, length2, array, arrowarray) {
   textSize(30);
 
   displaystr1(str1, length1);
   displaystr2(str2, length2);
 
-  //text(str1, 10, 50);
   //text(str2, 10, 100);
 
   for (var i = 0; i < length1; i++) {
@@ -147,3 +119,4 @@ function displayArrow(direction, x, y) {
     break;
   }
 }
+
