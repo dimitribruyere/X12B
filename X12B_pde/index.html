@@ -31,13 +31,13 @@
     String 1 <input class="form-control" type="text" id="string1"/><br/>
     String 2 <input class="form-control" type="text" id="string2"/><br/>
     
-    <input type="radio" name="algotype" value="lcs" checked> LCS <br/>
-    <input type="radio" name="algotype" value="classic"> Classic ED <br/>
+    <input type="radio" name="algotype" value="lcs"> LCS <br/>
+    <input type="radio" name="algotype" value="classic" checked> Classic ED <br/>
     <input type="radio" name="algotype" value="rec"> Pure recursive ED <br/>
     <input type="radio" name="algotype" value="divide"> Divide Conquer ED <br/>
     <input type="radio" name="algotype" value="branch"> Branch & Bound ED <br/>
     <input type="radio" name="algotype" value="greedy"> Approximated Greedy ED <br/>
-    <input type="radio" name="algotype" value="approx"> Approximated Classic ED <br/>
+    <input type="radio" name="algotype" value="approx"> Approximated Classic ED <input type="text" id="size" name="size" value="Size"/><br/>
     
     <button class="btn btn-info" onclick="process()">Process</button>
     <button class="btn btn-warning" onclick="reset()">Reset</button>
@@ -63,7 +63,7 @@
       //Input
       var texts1 = document.getElementById("string1").value;
       var texts2 = document.getElementById("string2").value;
-      
+      var size = document.getElementById("size").value;
      
       //Process
       
@@ -93,7 +93,7 @@
           text = approx_greedy(texts1, texts2);
         break;
         case "approx":
-          text = approx_classic(texts1, texts2);
+          text = approx_classic(texts1, texts2, size);
         break;
         default:
           text = "Error:Algorithm type undefined";
@@ -107,8 +107,6 @@
       
      
     }
-    
-   
 
   </script>
 </body>

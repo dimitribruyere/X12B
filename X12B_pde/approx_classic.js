@@ -1,7 +1,6 @@
 function approx_classic(str1, str2, k)
 {
-  k = 2;
-   
+  console.log(k)
   var l1 = str1.length+1;
   var l2 = str2.length+1;
   
