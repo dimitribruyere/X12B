@@ -35,9 +35,9 @@
     <input type="radio" name="algotype" value="classic" checked> Classic ED <br/>
     <input type="radio" name="algotype" value="rec"> Pure recursive ED <br/>
     <input type="radio" name="algotype" value="divide"> Divide Conquer ED <br/>
-    <input type="radio" name="algotype" value="branch"> Branch & Bound ED <br/>
+    <input type="radio" name="algotype" value="branch"> Branch and Bound ED <br/>
     <input type="radio" name="algotype" value="greedy"> Approximated Greedy ED <br/>
-    <input type="radio" name="algotype" value="approx"> Approximated Classic ED <input type="text" id="size" name="size" value="Size"/><br/>
+    <input type="radio" name="algotype" value="approx"> Approximated Classic ED <input type="text" id="sizeK" name="sizeK" value="SizeK"/><br/>
     
     <button class="btn btn-info" onclick="process()">Process</button>
     <button class="btn btn-warning" onclick="reset()">Reset</button>
@@ -53,6 +53,7 @@
     }
     function process()
     {
+      background(155);
       var timerStart;
       var timerEnd;
       var computationTime;
@@ -63,7 +64,7 @@
       //Input
       var texts1 = document.getElementById("string1").value;
       var texts2 = document.getElementById("string2").value;
-      var size = document.getElementById("size").value;
+      var sizeOfDocument = document.getElementById("sizeK").value;
      
       //Process
       
@@ -93,7 +94,7 @@
           text = approx_greedy(texts1, texts2);
         break;
         case "approx":
-          text = approx_classic(texts1, texts2, size);
+          text = approx_classic(texts1, texts2, sizeOfDocument);
         break;
         default:
           text = "Error:Algorithm type undefined";
