@@ -80,7 +80,10 @@ function displayClassic(str1, str2, length1, length2, array, arrowarray) {
 
   for (var i = 0; i < length1; i++) {
     for (var j = 0; j < length2; j++) {
-      text(""+array[i][j], i*100+100, j*100+100);
+      if(array[i][j]!=-1)
+        text(""+array[i][j], i*100+100, j*100+100);
+      else
+        text(".", i*100+100, j*100+100);        
     }
   }
   for (var i = 1; i < length1; i++) {
