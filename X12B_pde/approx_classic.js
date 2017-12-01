@@ -89,9 +89,9 @@ function dynamic_prog(X,Y,matrix,str1,str2)
 {
   if(X==0)
     return matrix;
-  var haut = 100000000000;
-  var gauche = 100000000000;
-  var hautgauche = 100000000000;
+  var haut = Number.MAX_SAFE_INTEGER;
+  var gauche = Number.MAX_SAFE_INTEGER;
+  var hautgauche = Number.MAX_SAFE_INTEGER;
     if(matrix[X-1] !== undefined)
     {
       if(matrix[X-1][Y] != -1)
