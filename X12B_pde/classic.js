@@ -80,10 +80,10 @@ function displayClassic(str1, str2, length1, length2, array, arrowarray) {
 
   for (var i = 0; i < length1; i++) {
     for (var j = 0; j < length2; j++) {
-      if(array[i][j]!=-1)
+      if (array[i][j]!=-1)
         text(""+array[i][j], i*100+100, j*100+100);
       else
-        text(".", i*100+100, j*100+100);        
+        text(".", i*100+100, j*100+100);
     }
   }
   for (var i = 1; i < length1; i++) {
@@ -110,15 +110,23 @@ function displaystr2(str, len) {
 
 function displayArrow(direction, x, y) {
   y-=40;
+  push();
+  fill(0);
+
   switch(direction) {
   case 'G':
     line(x-95, y, x-35, y);
+    triangle(x-95, y, x-85, y+5, x-85, y-5);
     break;
   case 'H':
     line(x-15, y-80, x-15, y-20);
+    triangle(x-15, y-80, x-10, y-70, x-20, y-70);
     break;
   case 'D':
     line(x-95, y-80, x-35, y-20);
+    triangle(x-95, y-80, x-85, y-75, x-90, y-70);
+
     break;
   }
+  pop();
 }
