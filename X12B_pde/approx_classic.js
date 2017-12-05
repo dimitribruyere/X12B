@@ -12,6 +12,9 @@ function approx_classic(str1, str2, k)
   
   if(l1<l2)
   {
+    var strtemp = str1;
+    str1 = str2;
+    str2 = strtemp;
     l1 += l2;
     l2 = l1-l2;
     l1 = l1-l2; 
@@ -23,7 +26,7 @@ function approx_classic(str1, str2, k)
   matrix = diag_fill(matrix,l1,l2,k,str1,str2);
 
   display_matrix(matrix);
-  displayClassic(str1, str2, l1, l2, matrix, arrow_array);
+  displayClassic(str2, str1, l2, l1, matrix, arrow_array);
   return matrix[l1-1][l2-1];
 }
 
