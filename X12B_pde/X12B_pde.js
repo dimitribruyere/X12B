@@ -4,7 +4,7 @@ function setup()
   createCanvas(1500, 1500);
   background(120);
 }
-
+/*
 function draw()
 {
   //var texts1 = document.getElementById("string1").value;
@@ -46,3 +46,4 @@ function ed(s1, s2)
 //    break;
 //  }
 //}
+*/
