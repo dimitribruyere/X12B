@@ -41,7 +41,6 @@ function alignmentDisplay(str1, str2, alignmentCoding) {
   document.getElementById("str1").innerHTML=firstStr;
   document.getElementById("algnmt").innerHTML=alignStr;
   document.getElementById("str2").innerHTML=scndStr;
-  console.log("working");
 }
 
 function alignmentWithArrowMatrix(arrowMatrix, str1, str2)
