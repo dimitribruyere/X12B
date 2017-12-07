@@ -86,6 +86,7 @@ function process()
 
 
   var text;
+  var computeAlgo;
   switch(algotype)
   {
   case "lcs":
@@ -95,7 +96,10 @@ function process()
 
     resizeCanvas(texts1.length*100+200, texts2.length*100+200);
     background(240);
-    text = classic(texts1, texts2);
+    computeAlgo = classic(texts1, texts2);
+    text = computeAlgo.cost;
+    alignmentCode = computeAlgo.alignment;
+    alert(alignmentCode);
     break;
   case "rec":
     text = rec(texts1, texts2);
@@ -120,9 +124,10 @@ function process()
     text = "Error:Algorithm type undefined";
     break;
   }
-  alignmentDisplay(texts1, texts2, "--SS");
   //Output
   timerEnd = new Date();
+  alignmentDisplay(texts1, texts2, alignmentCode);
+
   computationTime = timerEnd - timerStart;
   document.getElementById("reponse").innerHTML = "Distance d'edition : "+text + " et temps de calcul : " + computationTime +" ms." ;
 }
