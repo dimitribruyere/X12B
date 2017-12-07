@@ -56,7 +56,7 @@ function diag_fill(matrix,X2,Y2,k,str1,str2)
     //We extends the diagonal
     matrix = k_extend(X,Y,k,matrix,str1,str2);
    
-      console.log("X="+X+" Y="+Y);
+      //console.log("X="+X+" Y="+Y);
    
     error += M;
     if(error >= 0)
@@ -68,11 +68,11 @@ function diag_fill(matrix,X2,Y2,k,str1,str2)
   return matrix;
 }
 
-function display_matrix(matrix)
-{
-  for(var i=0; i<matrix.length; i++)
-    console.log(matrix[i]+"\n");
-}
+//function display_matrix(matrix)
+//{
+//  for(var i=0; i<matrix.length; i++)
+//    //console.log(matrix[i]+"\n");
+//}
 
 function k_extend(X,Y,k,matrix,str1,str2)
 {
