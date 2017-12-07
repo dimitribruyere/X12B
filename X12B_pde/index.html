@@ -5,6 +5,7 @@
 
   <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
   <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
+  <script language="javascript" type="text/javascript" src="libraries/p5.dom.js"></script>
   <script language="javascript" type="text/javascript" src="alignment.js"></script>
   <script language="javascript" type="text/javascript" src="approx_classic.js"></script>
   <script language="javascript" type="text/javascript" src="approx_greedy.js"></script>
@@ -55,6 +56,7 @@ font-size:
   <br/>
   <br/>
   <p id="reponse">Reponse</p>
+  <p id="alignement"></p>
 
   <script>
   function reset()
@@ -108,8 +110,8 @@ function process()
     text = approx_greedy(texts1, texts2);
     break;
   case "approx":
-    var minSize=min(texts1.length,texts2.length);
-    var maxSize=max(texts1.length,texts2.length);
+    var minSize=min(texts1.length, texts2.length);
+    var maxSize=max(texts1.length, texts2.length);
     resizeCanvas(maxSize*100+200, minSize*100+200);
     background(240);
     text = approx_classic(texts1, texts2, sizeOfDocument);
@@ -118,7 +120,7 @@ function process()
     text = "Error:Algorithm type undefined";
     break;
   }
-
+  alignmentDisplay(texts1, texts2, "--SS");
   //Output
   timerEnd = new Date();
   computationTime = timerEnd - timerStart;
