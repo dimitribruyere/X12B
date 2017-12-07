@@ -12,6 +12,9 @@ function approx_classic(str1, str2, k)
   
   if(l1<l2)
   {
+    var strtemp = str1;
+    str1 = str2;
+    str2 = strtemp;
     l1 += l2;
     l2 = l1-l2;
     l1 = l1-l2; 
