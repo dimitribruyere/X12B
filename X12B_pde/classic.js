@@ -65,12 +65,14 @@ function dynamicprog(str1, str2, length1, length2, array, arrowMatrix)
       }
     }
   }
-  
+
 
   fillArrowMatrix(arrowMatrix, length1, length2);
-  alignmentWithArrowMatrix(arrowMatrix, str1, str2);
   displayClassic(str1, str2, length1, length2, array, arrowMatrix);
-  return array[length1-1][length2-1];  //We return the last element visited, which is the cost of the ED
+  return {
+    "cost" : array[length1-1][length2-1], //The last element visited, which is the cost of the ED
+    "alignment" : alignmentWithArrowMatrix(arrowMatrix, str1, str2) // The alignment code
+  };  
 }
 
 function fillArrowMatrix(arrowMatrix, length1, length2)
