@@ -6,14 +6,14 @@ function classic(str1, str2)
   var length2 = str2.length + 1;
   //array contains the weight matrix
   var array = new Array(length1);
-  //arrowarray contains the arrow matrix
-  var arrowarray = new Array(length1);
+  //arrowMatrix contains the arrow matrix
+  var arrowMatrix = new Array(length1);
 
 
   for ( var i = 0; i < length1; i++)
   {
     array[i] = new Array(length2); //The array has now 2 dimension
-    arrowarray[i] = new Array(length2);
+    arrowMatrix[i] = new Array(length2);
   }
 
   for ( var i = 0; i < length1; i++)
@@ -30,10 +30,10 @@ function classic(str1, str2)
     }
   }
 
-  return dynamicprog(str1, str2, length1, length2, array, arrowarray);
+  return dynamicprog(str1, str2, length1, length2, array, arrowMatrix);
 }
 
-function dynamicprog(str1, str2, length1, length2, array, arrowarray)
+function dynamicprog(str1, str2, length1, length2, array, arrowMatrix)
 {
   for (var i = 1; i < length1; i++)
   {
@@ -55,22 +55,37 @@ function dynamicprog(str1, str2, length1, length2, array, arrowarray)
 
       if (min == hautgauche)   //Here we fill the arrow array to know the path
       {
-        arrowarray[i][j]='D';
+        arrowMatrix[i][j]='D';
       } else if (min == gauche)
       {
-        arrowarray[i][j]='H';
+        arrowMatrix[i][j]='H';
       } else
       {
-        arrowarray[i][j]='G';
+        arrowMatrix[i][j]='G';
       }
     }
   }
+  
 
-  displayClassic(str1, str2, length1, length2, array, arrowarray);
+  fillArrowMatrix(arrowMatrix, length1, length2);
+  alignmentWithArrowMatrix(arrowMatrix, str1, str2);
+  displayClassic(str1, str2, length1, length2, array, arrowMatrix);
   return array[length1-1][length2-1];  //We return the last element visited, which is the cost of the ED
 }
 
-function displayClassic(str1, str2, length1, length2, array, arrowarray) {
+function fillArrowMatrix(arrowMatrix, length1, length2)
+{
+  for (i=1; i<length1; i++)
+  {
+    arrowMatrix[i][0]='G';
+  }
+  for (i=1; i<length2; i++)
+  {
+    arrowMatrix[0][i]='H';
+  }
+}
+
+function displayClassic(str1, str2, length1, length2, array, arrowMatrix) {
   textSize(30);
 
   displaystr1(str1, length1);
@@ -86,12 +101,12 @@ function displayClassic(str1, str2, length1, length2, array, arrowarray) {
         text(".", i*100+100, j*100+100);
     }
   }
-  for (var i = 1; i < length1; i++) {
-    for (var j = 1; j < length2; j++) {
+  for (var i = 0; i < length1; i++) {
+    for (var j = 0; j < length2; j++) {
       //text version :
-      //text(""+arrowarray[i][j], i*100+125, j*100+125);
+      //text(""+arrowMatrix[i][j], i*100+125, j*100+125);
       //arrow version :
-      displayArrow(arrowarray[i][j], i*100+125, j*100+125);
+      displayArrow(arrowMatrix[i][j], i*100+125, j*100+125);
     }
   }
 }
