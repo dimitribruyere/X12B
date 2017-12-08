@@ -6,7 +6,6 @@ function branch_bound(str1, str2)
     best_ed_so_far = Number.MAX_SAFE_INTEGER; //We initialize the best solution each time we call the algo
     best_path_so_far = "";
     branch_bound_bis(str1, str2, 0, ""); //On the first call of the recursion we take both strings and edit distance of 0
-    alert(best_path_so_far);
     return { "ed" : best_ed_so_far, "path" : best_path_so_far};
 }
 
