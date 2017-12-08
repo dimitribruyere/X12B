@@ -21,7 +21,7 @@ function branch_bound_bis(str1, str2, ed, path)
             best_ed_so_far = final_ed_in_this_branch;
             for (i=0; i<str2.length; i++)
             {
-                path+='-';
+                path+='+';
             }
             best_path_so_far = path;
         }
@@ -35,7 +35,7 @@ function branch_bound_bis(str1, str2, ed, path)
             best_ed_so_far = final_ed_in_this_branch;
             for (i=0; i<str1.length; i++)
             {
-                path+='+';
+                path+='-';
             }
             best_path_so_far = path;
         }
@@ -66,9 +66,9 @@ function branch_bound_bis(str1, str2, ed, path)
 
     else
     {
-        var path_add = path+='+';
-        var path_sub = path+='S';
-        var path_rem = path+='-';
+        var path_add = path+'+';
+        var path_sub = path+'S';
+        var path_rem = path+'-';
         branch_bound_bis(new_str1, str2, ed+1, path_rem);
         branch_bound_bis(new_str1, new_str2, ed+1, path_sub);
         branch_bound_bis(str1, new_str2, ed+1, path_add);
