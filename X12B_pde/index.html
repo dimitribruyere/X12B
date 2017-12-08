@@ -122,7 +122,9 @@
                     alignmentCode = computeAlgo.alignment;
                     break;
                 case "rec":
-                    text = rec(texts1, texts2);
+                    computeAlgo = rec(texts1, texts2);
+                    text = computeAlgo.ed;
+                    alignmentCode = computeAlgo.path;
                     break;
                 case "divide":
                     text = divide_conquer(texts1, texts2);

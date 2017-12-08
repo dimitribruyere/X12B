@@ -1,4 +1,4 @@
-var arrow_array;
+var arrow_matrix;
 
 function approx_classic(str1, str2, k)
 {
@@ -22,11 +22,11 @@ function approx_classic(str1, str2, k)
   
   //Initialisation, filling by -1 and the 0 layer
   var matrix = init_matrix(l1,l2);
-  arrow_array = init_matrix(l1,l2);
+  arrow_matrix = init_matrix(l1,l2);
   matrix = diag_fill(matrix,l1,l2,k,str1,str2);
 
   //display_matrix(matrix);
-  displayClassic(str1, str2, l1, l2, matrix, arrow_array);
+  displayClassic(str1, str2, l1, l2, matrix, arrow_matrix);
   return matrix[l1-1][l2-1];
 }
 
@@ -127,13 +127,13 @@ function dynamic_prog(X,Y,matrix,str1,str2)
 
        if (min == hautgauche)   //Here we fill the arrow array to know the path
       {
-        arrow_array[X][Y]='D';
+        arrow_matrix[X][Y]='D';
       } else if (min == gauche)
       {
-        arrow_array[X][Y]='H';
+        arrow_matrix[X][Y]='H';
       } else
       {
-        arrow_array[X][Y]='G';
+        arrow_matrix[X][Y]='G';
       }
       return matrix;
 }
