@@ -18,7 +18,7 @@ function recurrence(ch1,ch2,length1,length2,backtrackArray)
   if(length2==0)
   { 
     var operation = backtrackArray['path']; //We add to the trace all substraction left to do to the string
-    for(var i = 0; i < length2 ; i++)
+    for(var i = 0; i < length1 ; i++)
     {
       operation+="-";
     }
