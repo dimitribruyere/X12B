@@ -110,8 +110,8 @@
                     resizeCanvas(texts1.length * 100 + 200, texts2.length * 100 + 200);
                     background(240);
                     computeAlgo = classic(texts1, texts2);
-                    text = computeAlgo.cost;
-                    alignmentCode = computeAlgo.alignment;
+                    text = computeAlgo.ed;
+                    alignmentCode = computeAlgo.path;
                     break;
                 case "rec":
                     computeAlgo = rec(texts1, texts2);
@@ -135,8 +135,8 @@
                     resizeCanvas(maxSize * 100 + 200, minSize * 100 + 200);
                     background(240);
                     computeAlgo = approx_classic(texts1, texts2, sizeOfDocument);
-                    text = computeAlgo.cost;
-                    alignmentCode = computeAlgo.alignment;
+                    text = computeAlgo.ed;
+                    alignmentCode = computeAlgo.path;
                     break;
                 default:
                     text = "Error:Algorithm type undefined";
@@ -144,7 +144,15 @@
             }
             //Output
             timerEnd = new Date();
-            alignmentDisplay(texts1, texts2, alignmentCode);
+            if (algotype === "approx")
+            {
+                if (texts1.length < texts2.length)
+                    alignmentDisplay(texts2, texts1, alignmentCode); 
+                else
+                    alignmentDisplay(texts1, texts2, alignmentCode); 
+            }
+            else 
+                alignmentDisplay(texts1, texts2, alignmentCode);
 
             computationTime = timerEnd - timerStart;
             document.getElementById("reponse").innerHTML = "Distance d'edition : " + text + " et temps de calcul : " + computationTime + " ms.";
