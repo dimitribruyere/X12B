@@ -51,7 +51,7 @@ function recurrence(ch1,ch2,length1,length2,backtrackArray)
       operation = temp2['trace'];
       operation += "-"; 
     }
-     else if(mini == temp3['length']) //If the last operation is a substitution, we add S to the trace
+     else if(minimum == temp3['length']) //If the last operation is a substitution, we add S to the trace
     {
       operation = temp3['trace'];
       operation += "S";
