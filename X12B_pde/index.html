@@ -101,6 +101,14 @@
 
             var text;
             var computeAlgo;
+            if (texts1 === "" && texts2 === ""){
+              
+             var howManyStrings = prompt("How many strings ?",10);
+             var stringGenerator = new generator();
+             stringGenerator.generateStrings(howManyStrings);
+             stringGenerator.showStrings();
+            }
+            else {
             switch (algotype) {
                 case "lcs":
                     text = lcs(texts1, texts2);
@@ -112,7 +120,6 @@
                     computeAlgo = classic(texts1, texts2);
                     text = computeAlgo.cost;
                     alignmentCode = computeAlgo.alignment;
-                    alert(alignmentCode);
                     break;
                 case "rec":
                     text = rec(texts1, texts2);
@@ -147,6 +154,8 @@
 
             computationTime = timerEnd - timerStart;
             document.getElementById("reponse").innerHTML = "Distance d'edition : " + text + " et temps de calcul : " + computationTime + " ms.";
+            
+        }
         }
 
     </script>
