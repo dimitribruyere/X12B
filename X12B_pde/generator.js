@@ -15,17 +15,19 @@ function generator() {
   }
 
   this.showStrings = function() {
+    var results = "";
     for (var i = 0; i < this.stringSet1.length; i++) {
       timerStart = new Date();
       computeAlgo = classic(this.stringSet1[i], this.stringSet2[i]);
       timerEnd = new Date();
-      var editDist = computeAlgo.cost;
+      var editDist = computeAlgo.ed;
       computationTime = timerEnd - timerStart;
       this.computationTimeSet[i] = computationTime;
       this.editDistSet[i] = editDist;
-      //alert(this.stringSet1[i] +" || "+ this.stringSet2[i] + " || editDist : "+editDist+" || time : "+computationTime);
-      
+      results += this.stringSet1[i] +" || "+ this.stringSet2[i] + " || editDist : "+editDist+" || time : "+computationTime;
+      results += "<br>";
     }
+    document.getElementById("reponse").innerHTML = results;
   }
 
   this.createString = function(StringLength) {

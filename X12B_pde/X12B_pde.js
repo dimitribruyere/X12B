@@ -1,4 +1,4 @@
-
+var customInput;
 function setup()
 {
   createCanvas(1500, 1500);

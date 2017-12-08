@@ -68,11 +68,14 @@ function dynamicprog(str1, str2, length1, length2, array, arrowMatrix)
 
 
   fillArrowMatrix(arrowMatrix, length1, length2);
-  displayClassic(str1, str2, length1, length2, array, arrowMatrix);
+  if (customInput) { // Only display the matrix when computing the ED on custom input
+    displayClassic(str1, str2, length1, length2, array, arrowMatrix);
+  }
   return {
     "ed" : array[length1-1][length2-1], //The last element visited, which is the cost of the ED
     "path" : alignmentWithArrowMatrix(arrowMatrix, str1, str2) // The alignment code
   };  
+
 }
 
 function fillArrowMatrix(arrowMatrix, length1, length2)
