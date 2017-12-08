@@ -27,7 +27,7 @@ function approx_classic(str1, str2, k)
 
   //display_matrix(matrix);
   displayClassic(str1, str2, l1, l2, matrix, arrow_matrix);
-  return matrix[l1-1][l2-1];
+  return { "ed" : matrix[l1-1][l2-1], "path": alignmentWithArrowMatrix(arrow_matrix, str1, str2)};
 }
 
 function init_matrix(l1,l2)
