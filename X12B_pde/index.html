@@ -1,9 +1,10 @@
 <html>
-  <head>
-  <meta charset="UTF-8">
+
+<head>
+    <meta charset="UTF-8">
 
 
-  <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
+    <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
   <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
   <script language="javascript" type="text/javascript" src="libraries/p5.dom.js"></script>
   <script language="javascript" type="text/javascript" src="alignment.js"></script>
@@ -17,121 +18,136 @@
   <script language="javascript" type="text/javascript" src="X12B_pde.js"></script>
   <!-- OK, YOU CAN MAKE CHANGES BELOW THIS LINE AGAIN -->
 
-  <!-- This line removes any default padding and style. 
+    <!-- This line removes any default padding and style. 
   You might only need one of these values set. -->
-  <style> body {
-padding: 
-  50px; 
-margin: 
-  0;
-} 
-p {
-font-size:
-  1.8em;
-}
-</style>
+    <style>
+        body {
+            padding: 50px;
+            margin: 0;
+        }
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-  </head>
+        p {
+            font-size: 1.8em;
+        }
+    </style>
 
-  <body>
-  <h1 class="glyphicon glyphicon-th-large">Edit Distance Algorithms</h1>
-  <br/>
-  String 1 <input class="form-control" type="text" id="string1"/><br/>
-  String 2 <input class="form-control" type="text" id="string2"/><br/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+</head>
 
-  <input type="radio" name="algotype" value="lcs"> LCS <br/>
-  <input type="radio" name="algotype" value="classic" checked> Classic ED <br/>
-  <input type="radio" name="algotype" value="rec"> Pure recursive ED <br/>
-  <input type="radio" name="algotype" value="divide"> Divide Conquer ED <br/>
-  <input type="radio" name="algotype" value="branch"> Branch and Bound ED <br/>
-  <input type="radio" name="algotype" value="greedy"> Approximated Greedy ED <br/>
-  <input type="radio" name="algotype" value="approx"> Approximated Classic ED <input type="text" id="sizeK" name="sizeK" value="SizeK"/><br/>
+<body>
+    <h1 class="glyphicon glyphicon-th-large">Edit Distance Algorithms</h1>
+    <br/> String 1
+    <input class="form-control" type="text" id="string1" />
+    <br/> String 2
+    <input class="form-control" type="text" id="string2" />
+    <br/>
 
-  <button class="btn btn-info" onclick="process()">Process</button>
-  <button class="btn btn-warning" onclick="reset()">Reset</button>
-  <br/>
-  <br/>
-  <p id="reponse">Reponse</p>
-  <p id="alignement"></p>
+    <input type="radio" name="algotype" value="lcs"> LCS
+    <br/>
+    <input type="radio" name="algotype" value="classic" checked> Classic ED
+    <br/>
+    <input type="radio" name="algotype" value="rec"> Pure recursive ED
+    <br/>
+    <input type="radio" name="algotype" value="divide"> Divide Conquer ED
+    <br/>
+    <input type="radio" name="algotype" value="branch"> Branch and Bound ED
+    <br/>
+    <input type="radio" name="algotype" value="greedy"> Approximated Greedy ED
+    <br/>
+    <input type="radio" name="algotype" value="approx"> Approximated Classic ED
+    <input type="text" id="sizeK" name="sizeK" value="SizeK" />
+    <br/>
 
-  <script>
-  function reset()
-{
-  document.getElementById("reponse").innerHTML = "Reponse"; //CHRIS
-  resizeCanvas(0, 0);
-}
-function process()
-{
-  var timerStart;
-  var timerEnd;
-  var computationTime;
+    <button class="btn btn-info" onclick="process()">Process</button>
+    <button class="btn btn-warning" onclick="reset()">Reset</button>
+    <br/>
+    <br/>
+    <p id="reponse">Reponse</p>
+    <p id="alignement"></p>
 
-  timerStart = new Date();
+    <script>
+        function reset() {
+            document.getElementById("reponse").innerHTML = "Reponse"; //CHRIS
+            resizeCanvas(0, 0);
+        }
+        function process() {
+            var timerStart;
+            var timerEnd;
+            var computationTime;
 
-
-  //Input
-  var texts1 = document.getElementById("string1").value;
-  var texts2 = document.getElementById("string2").value;
-  var sizeOfDocument = document.getElementById("sizeK").value;
-
-  //Process
-
-  var algotype = $('input[name=algotype]:checked').val();
-
-  console.log(algotype);
+            timerStart = new Date();
 
 
-  var text;
-  var computeAlgo;
-  switch(algotype)
-  {
-  case "lcs":
-    text = lcs(texts1, texts2);
-    break;
-  case "classic":
+            //Input
+            var texts1 = document.getElementById("string1").value;
+            var texts2 = document.getElementById("string2").value;
+            var sizeOfDocument = document.getElementById("sizeK").value;
 
-    resizeCanvas(texts1.length*100+200, texts2.length*100+200);
-    background(240);
-    computeAlgo = classic(texts1, texts2);
-    text = computeAlgo.cost;
-    alignmentCode = computeAlgo.alignment;
-    alert(alignmentCode);
-    break;
-  case "rec":
-    text = rec(texts1, texts2);
-    break;
-  case "divide":
-    text = divide_conquer(texts1, texts2);
-    break;
-  case "branch":
-    text = branch_bound(texts1, texts2);
-    break;
-  case "greedy":
-    text = approx_greedy(texts1, texts2);
-    break;
-  case "approx":
-    var minSize=min(texts1.length, texts2.length);
-    var maxSize=max(texts1.length, texts2.length);
-    resizeCanvas(maxSize*100+200, minSize*100+200);
-    background(240);
-    text = approx_classic(texts1, texts2, sizeOfDocument);
-    break;
-  default:
-    text = "Error:Algorithm type undefined";
-    break;
-  }
-  //Output
-  timerEnd = new Date();
-  alignmentDisplay(texts1, texts2, alignmentCode);
+            //Process
 
-  computationTime = timerEnd - timerStart;
-  document.getElementById("reponse").innerHTML = "Distance d'edition : "+text + " et temps de calcul : " + computationTime +" ms." ;
-}
+            var algotype = $('input[name=algotype]:checked').val();
 
-</script>
-  </body>
-  </html>
+            console.log(algotype);
+
+
+            var text;
+            var computeAlgo;
+            switch (algotype) {
+                case "lcs":
+                    text = lcs(texts1, texts2);
+                    break;
+                case "classic":
+
+                    resizeCanvas(texts1.length * 100 + 200, texts2.length * 100 + 200);
+                    background(240);
+                    computeAlgo = classic(texts1, texts2);
+                    text = computeAlgo.cost;
+                    alignmentCode = computeAlgo.alignment;
+                    alert(alignmentCode);
+                    break;
+                case "rec":
+                    text = rec(texts1, texts2);
+                    break;
+                case "divide":
+                    text = divide_conquer(texts1, texts2);
+                    break;
+                case "branch":
+                    computeAlgo = branch_bound(texts1, texts2);
+                    text = computeAlgo.ed;
+                    alignmentCode = computeAlgo.path;
+                    break;
+                case "greedy":
+                    text = approx_greedy(texts1, texts2);
+                    break;
+                case "approx":
+                    var minSize = min(texts1.length, texts2.length);
+                    var maxSize = max(texts1.length, texts2.length);
+                    resizeCanvas(maxSize * 100 + 200, minSize * 100 + 200);
+                    background(240);
+                    computeAlgo = approx_classic(texts1, texts2, sizeOfDocument);
+                    text = computeAlgo.cost;
+                    alignmentCode = computeAlgo.alignment;
+                    break;
+                default:
+                    text = "Error:Algorithm type undefined";
+                    break;
+            }
+            //Output
+            timerEnd = new Date();
+            alignmentDisplay(texts1, texts2, alignmentCode);
+
+            computationTime = timerEnd - timerStart;
+            document.getElementById("reponse").innerHTML = "Distance d'edition : " + text + " et temps de calcul : " + computationTime + " ms.";
+        }
+
+    </script>
+</body>
+
+</html>
