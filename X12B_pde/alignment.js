@@ -48,7 +48,7 @@ function alignmentWithArrowMatrix(arrowMatrix, str1, str2) {
     var j = str2.length;
     var i = str1.length;
     var index = 0;
-    console.log(arrowMatrix);
+    //console.log(arrowMatrix);
 
     while (i > 0 || j > 0) {
         if (arrowMatrix[i][j] == 'D') //diagonal
@@ -70,9 +70,9 @@ function alignmentWithArrowMatrix(arrowMatrix, str1, str2) {
     }
 
 
-    console.log(alignmentArray);
+    //console.log(alignmentArray);
     var newString = reverseArrayToString(alignmentArray);
-    console.log(newString);
+    //console.log(newString);
     return newString;
 }
 
