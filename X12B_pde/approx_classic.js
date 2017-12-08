@@ -25,7 +25,7 @@ function approx_classic(str1, str2, k)
   arrow_array = init_matrix(l1,l2);
   matrix = diag_fill(matrix,l1,l2,k,str1,str2);
 
-  display_matrix(matrix);
+  //display_matrix(matrix);
   displayClassic(str1, str2, l1, l2, matrix, arrow_array);
   return matrix[l1-1][l2-1];
 }
