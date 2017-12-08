@@ -73,6 +73,7 @@
     <br/>
     <p id="reponse">Reponse</p>
     <p id="alignement"></p>
+    <p id="showResults"></p>
 
     <script>
         function reset() {
@@ -103,6 +104,8 @@
             var text;
             var computeAlgo;
             if (texts1 === "" && texts2 === ""){
+              reset();
+              customInput = false; // We don't want to display the matrices of all the tests;
               
              var howManyStrings = prompt("How many strings ?",10);
              var stringGenerator = new generator();
@@ -110,6 +113,7 @@
              stringGenerator.showStrings();
             }
             else {
+              customInput = true; // We want to display the matrix 
             switch (algotype) {
                 case "lcs":
                     text = lcs(texts1, texts2);
