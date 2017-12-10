@@ -23,7 +23,7 @@ function approx_classic(str1, str2, k) {
     arrow_matrix = init_matrix(l1, l2);
     matrix = diag_fill(matrix, l1, l2, k, str1, str2);
 
-    complete_matrix(l1,l2);
+    complete_matrix(matrix, l1,l2);
     //display_matrix(matrix);
     displayClassic(str1, str2, l1, l2, matrix, arrow_matrix);
     return { "ed": matrix[l1 - 1][l2 - 1], "path": alignmentWithArrowMatrix(arrow_matrix, str1, str2) };
@@ -35,21 +35,22 @@ function init_matrix(l1, l2) {
     for (var i = 0; i < l1; i++) {
         matrix[i] = new Array(l2);
         for (var j = 0; j < l2; j++) {
-            if (j == 0 || i == 0)
-                matrix[i][j] = i + j; //Set the extremity of the array
-            else
+            // if (j == 0 || i == 0)
+            //     matrix[i][j] = i + j; //Set the extremity of the array
+            // else
                 matrix[i][j] = -1;
         }
+        matrix[0][0] = 0;
     }
     return matrix;
 }
 
-function diag_fill(matrix, X2, Y2, k, str1, str2) {
+function diag_fill(matrix, l1, l2, k, str1, str2) {
     var X = 0;
     var Y = 0;
-    var M = (Y2-1) / (X2-1);
+    var M = (l2-1) / (l1-1);
     var error = -0.5;
-    for (X = 0; X < X2; X++) {
+    for (X = 0; X < l1; X++) {
         //We extends the diagonal
         matrix = k_extend(X, Y, k, matrix, str1, str2);
 
@@ -79,11 +80,16 @@ function dynamic_prog(X, Y, matrix, str1, str2) {
     var haut = Number.MAX_SAFE_INTEGER;
     var gauche = Number.MAX_SAFE_INTEGER;
     var hautgauche = Number.MAX_SAFE_INTEGER;
+
     if (matrix[X - 1] !== undefined) {
+        if (X-1 == 0)
+            matrix[0][Y-1]=Y-1;
         if (matrix[X - 1][Y] != -1)
             haut = matrix[X - 1][Y] + 1;
     }
     if (matrix[X] !== undefined) {
+        if (Y-1 == 0)
+            matrix[X-1][0]=X-1;
         if (matrix[X][Y - 1] != -1)
             var gauche = matrix[X][Y - 1] + 1;
     }
@@ -113,26 +119,20 @@ function dynamic_prog(X, Y, matrix, str1, str2) {
     return matrix;
 }
 
-function complete_matrix(l1, l2)
+function complete_matrix(ed_matrix, l1, l2)
 {
     for (l=1; l<l1; l++)
     {
-        if (arrow_matrix[l][1] === 'D')
+        if (ed_matrix[l][0] !== -1)
         {
-            for (k=l-1; k>0; k--)
-            {
-                arrow_matrix[k][0]='G';
-            }
+            arrow_matrix[l][0]='G';
         }
     }
     for (c=1; c<l2; c++)
     {
-        if (arrow_matrix[1][c] === 'D')
+        if (ed_matrix[0][c] !== -1)
         {
-            for (k=c-1; k>0; k--)
-            {
-                arrow_matrix[0][k]='H';
-            }
+            arrow_matrix[0][c]='H';
         }
     }
 }
