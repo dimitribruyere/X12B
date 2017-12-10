@@ -140,7 +140,9 @@
                     alignmentCode = computeAlgo.path;
                     break;
                 case "greedy":
-                    text = approx_greedy(texts1, texts2);
+                    computeAlgo = approx_greedy(texts1, texts2);
+                    text = computeAlgo.ed;
+                    alignmentCode = computeAlgo.path;
                     break;
                 case "approx":
                     var minSize = min(texts1.length, texts2.length);
