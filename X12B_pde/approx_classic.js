@@ -24,7 +24,6 @@ function approx_classic(str1, str2, k) {
     matrix = diag_fill(matrix, l1, l2, k, str1, str2);
 
     complete_matrix(matrix, l1,l2);
-    //display_matrix(matrix);
     displayClassic(str1, str2, l1, l2, matrix, arrow_matrix);
     return { "ed": matrix[l1 - 1][l2 - 1], "path": alignmentWithArrowMatrix(arrow_matrix, str1, str2) };
 }
@@ -35,12 +34,8 @@ function init_matrix(l1, l2) {
     for (var i = 0; i < l1; i++) {
         matrix[i] = new Array(l2);
         for (var j = 0; j < l2; j++) {
-            // if (j == 0 || i == 0)
-            //     matrix[i][j] = i + j; //Set the extremity of the array
-            // else
                 matrix[i][j] = -1;
         }
-        matrix[0][0] = 0;
     }
     return matrix;
 }
@@ -51,11 +46,9 @@ function diag_fill(matrix, l1, l2, k, str1, str2) {
     var M = (l2-1) / (l1-1);
     var error = -0.5;
     for (X = 0; X < l1; X++) {
-        //We extends the diagonal
+        //We extends the diagonal by K in vertical
         matrix = k_extend(X, Y, k, matrix, str1, str2);
-
-        //console.log("X="+X+" Y="+Y);
-
+        
         error += M;
         if (error >= 0) {
             Y++;
@@ -67,7 +60,7 @@ function diag_fill(matrix, l1, l2, k, str1, str2) {
 
 function k_extend(X, Y, k, matrix, str1, str2) {
     for (var i = Y - k; i < Y + k + 1; i++) {
-        if (i > 0 && i < matrix[1].length)
+        if (i >= 0 && i < matrix[1].length)
             dynamic_prog(X, i, matrix, str1, str2);
     }
     return matrix;
@@ -75,25 +68,30 @@ function k_extend(X, Y, k, matrix, str1, str2) {
 
 
 function dynamic_prog(X, Y, matrix, str1, str2) {
-    if (X == 0)
-        return matrix;
+
     var haut = Number.MAX_SAFE_INTEGER;
     var gauche = Number.MAX_SAFE_INTEGER;
     var hautgauche = Number.MAX_SAFE_INTEGER;
-
-    if (matrix[X - 1] !== undefined) {
-        if (X-1 == 0)
-            matrix[0][Y-1]=Y-1;
-        if (matrix[X - 1][Y] != -1)
+    
+        if (X == 0)
+        {
+            matrix[X][Y]=Y;
+            return matrix;
+        }
+        else if (matrix[X - 1][Y] != -1)
             haut = matrix[X - 1][Y] + 1;
-    }
-    if (matrix[X] !== undefined) {
-        if (Y-1 == 0)
-            matrix[X-1][0]=X-1;
-        if (matrix[X][Y - 1] != -1)
+    
+
+        if (Y == 0)
+        {
+            matrix[X][Y]=X;
+            return matrix;
+        }
+        else if (matrix[X][Y - 1] != -1)
             var gauche = matrix[X][Y - 1] + 1;
-    }
-    if (matrix[X - 1] !== undefined) {
+        
+
+      if(X!=0 && Y!=0){
         if (matrix[X - 1][Y - 1] != -1) {
             if (str1.charAt(X - 1) == str2.charAt(Y - 1)) //If the 2 letter are the same, we wont add the cost of this computation
             {
@@ -102,12 +100,12 @@ function dynamic_prog(X, Y, matrix, str1, str2) {
                 var hautgauche = matrix[X - 1][Y - 1] + 1;
             }
         }
-
+         
     }
 
     var min = Math.min(haut, (Math.min(gauche, hautgauche))); //We take the minimun between the cell above, the cell on the left and the cell on the top left
     matrix[X][Y] = min;
-
+    console.log(matrix[X][Y]); 
     if (min == hautgauche)   //Here we fill the arrow array to know the path
     {
         arrow_matrix[X][Y] = 'D';
