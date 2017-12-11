@@ -119,7 +119,6 @@
                     text = lcs(texts1, texts2);
                     break;
                 case "classic":
-
                     resizeCanvas(texts1.length * 100 + 200, texts2.length * 100 + 200);
                     background(240);
                     computeAlgo = classic(texts1, texts2);
@@ -132,7 +131,10 @@
                     alignmentCode = computeAlgo.path;
                     break;
                 case "divide":
-                    text = divide_conquer(texts1, texts2);
+                    computeAlgo = divide_conquer(texts1, texts2);
+                    text = computeAlgo.ed;
+                    alignmentCode = computeAlgo.path;
+
                     break;
                 case "branch":
                     computeAlgo = branch_bound(texts1, texts2);
