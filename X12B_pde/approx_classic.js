@@ -1,6 +1,8 @@
 var arrow_matrix;
 
 function approx_classic(str1, str2, k) {
+    var timerStart = new Date();
+
     k = parseInt(k);
     if (k < 0)
         return "Size error";
@@ -25,7 +27,9 @@ function approx_classic(str1, str2, k) {
 
     complete_matrix(matrix, l1,l2);
     displayClassic(str1, str2, l1, l2, matrix, arrow_matrix);
-    return { "ed": matrix[l1 - 1][l2 - 1], "path": alignmentWithArrowMatrix(arrow_matrix, str1, str2) };
+    var timerEnd = new Date();
+    var computationTime = timerEnd - timerStart;
+    return { "ed": matrix[l1 - 1][l2 - 1], "path": alignmentWithArrowMatrix(arrow_matrix, str1, str2),"time": computationTime };
 }
 
 function init_matrix(l1, l2) {

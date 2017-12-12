@@ -1,7 +1,12 @@
 function rec(ch1, ch2)
 {
+  var timerStart = new Date();
+
   var result = recurrence(ch1,ch2,ch1.length,ch2.length, {'ed' : 0,'path' : ""});
-  console.log(result['path']);
+  
+  var timerEnd = new Date();
+  var computationTime = timerEnd - timerStart;
+  result.time = computationTime;
   return result;
 }
 
