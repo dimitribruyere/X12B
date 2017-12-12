@@ -31,7 +31,8 @@
         - [2.6.1 Functionnement](#261-functionnement)
         - [2.6.2 Complexity](#262-complexity)
 - [3. Evaluation protocol](#3-evaluation-protocol)
-    - [3.2 Random string generator](#32-random-string-generator)
+    - [3.1 Random string generator](#31-random-string-generator)
+    - [3.2 Results](#32-results)
 - [4. Organisation](#4-organisation)
 
 
@@ -113,7 +114,7 @@ But this gain of space and time has a cost : the edit distance found is not alwa
 
 #### 2.5.2 Time and space complexity
 
-The space complexity is equal to the size of the diagonal times (2 * k + 1). With a big K, the time and space complexity are the same as the classic algorithm.
+The space complexity is equal to the size of the diagonal times *(2 * k + 1)*. With a big K, the time and space complexity are the same as the classic algorithm.
 
 
 $$O(n*m)$$
@@ -134,10 +135,11 @@ $$O(min(n,m))$$
 
 ## 3. Evaluation protocol
 
-### 3.2 Random string generator
+### 3.1 Random string generator
 
 To test the different algorithms, we created a generator of random strings. The generator asks you the number of strings to generate, the length of the first string, and the percentage of similarity between the 2 strings. 
 
+### 3.2 Results
 
 ## 4. Organisation
 
