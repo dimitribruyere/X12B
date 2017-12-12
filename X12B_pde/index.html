@@ -15,6 +15,7 @@
   <script language="javascript" type="text/javascript" src="divide_conquer.js"></script>
   <script language="javascript" type="text/javascript" src="generator.js"></script>
   <script language="javascript" type="text/javascript" src="lcs.js"></script>
+  <script language="javascript" type="text/javascript" src="proteins.js"></script>
   <script language="javascript" type="text/javascript" src="rec.js"></script>
   <script language="javascript" type="text/javascript" src="X12B_pde.js"></script>
   <!-- OK, YOU CAN MAKE CHANGES BELOW THIS LINE AGAIN -->
@@ -50,6 +51,8 @@
     <br/> String 2
     <input class="form-control" type="text" id="string2" />
     <br/>
+    
+    <p id="result"><p/>
 
     <input type="radio" name="algotype" value="lcs"> LCS
     <br/>
@@ -66,22 +69,29 @@
     <input type="radio" name="algotype" value="approx"> Approximated Classic ED
     <input type="text" id="sizeK" name="sizeK" placeholder="K" />
     <br/>
-
+    <input type="file" id="file-input" />
+    <p id="file_error"></p>
+    <h3>Contents of the file:</h3>
+    <pre id="file-content"></pre>
+    
     <button class="btn btn-info" onclick="process()">Process</button>
     <button class="btn btn-warning" onclick="reset()">Reset</button>
     <br/>
     <br/>
     <p id="reponse">Reponse</p>
     <p id="alignement"></p>
-    <p id="showResults"></p>
 
     <script>
-        function reset() {
+
+        function reset()
+        {
             document.getElementById("reponse").innerHTML = "Reponse"; //CHRIS
             document.getElementById("alignement").innerHTML = "";
             resizeCanvas(0, 0);
         }
-        function process() {
+        
+        function process()
+        {
             reset();
             var timerStart;
             var timerEnd;
@@ -113,9 +123,11 @@
              stringGenerator.generateStrings(howManyStrings);
              stringGenerator.showStrings();
             }
-            else {
+            else
+            {
               customInput = true; // We want to display the matrix 
-            switch (algotype) {
+              switch (algotype)
+              {
                 case "lcs":
                     text = lcs(texts1, texts2);
                     break;
@@ -159,7 +171,7 @@
                 default:
                     text = "Error:Algorithm type undefined";
                     break;
-            }
+              }
             //Output
             timerEnd = new Date();
             if (algotype === "approx")
@@ -175,7 +187,7 @@
             computationTime = timerEnd - timerStart;
             document.getElementById("reponse").innerHTML = "Distance d'edition : " + text + " et temps de calcul : " + computationTime + " ms.";
             
-        }
+          }
         }
 
     </script>
