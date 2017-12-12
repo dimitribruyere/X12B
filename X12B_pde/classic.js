@@ -35,6 +35,8 @@ function classic(str1, str2)
 
 function dynamicprog(str1, str2, length1, length2, array, arrowMatrix)
 {
+  var timerStart = new Date();
+
   for (var i = 1; i < length1; i++)
   {
     for (var j = 1; j < length2; j++)
@@ -71,9 +73,12 @@ function dynamicprog(str1, str2, length1, length2, array, arrowMatrix)
   if (customInput) { // Only display the matrix when computing the ED on custom input
     displayClassic(str1, str2, length1, length2, array, arrowMatrix);
   }
+  var timerEnd = new Date();
+  var computationTime = timerEnd - timerStart;
   return {
     "ed" : array[length1-1][length2-1], //The last element visited, which is the cost of the ED
-    "path" : alignmentWithArrowMatrix(arrowMatrix, str1, str2) // The alignment code
+    "path" : alignmentWithArrowMatrix(arrowMatrix, str1, str2), // The alignment code
+    "time" : computationTime
   };  
 
 }

@@ -1,12 +1,16 @@
 var divideAndConquerEditDistance;
 function divide_conquer(str1, str2) {
+  var timerStart = new Date();
   divideAndConquerEditDistance=-1;
   p =divide_conquer_bis(str1, str2);
-  console.log(p);
+  var timerEnd = new Date();
+  var computationTime = timerEnd - timerStart;
   return {
   "ed":
   divideAndConquerEditDistance, "path":
-    p
+    p, 
+    "time" : 
+    computationTime
   };
 }
 
@@ -70,7 +74,7 @@ function divide_conquer_bis(str1, str2)
   var str1Reverse = reverseString(str1);
   var str2Reverse = reverseString(str2);
 
-  for ( var i = 0; i < whereToCutStr2; i++ ) {
+  for ( var i = 0; i < whereToCutStr2-1; i++ ) {
     find_next(bot_row, tmp_row, str1Reverse, str2Reverse.charAt(i));
     var permutateTmpAndBot = bot_row;
     bot_row = tmp_row;
@@ -80,12 +84,12 @@ function divide_conquer_bis(str1, str2)
 
   // We merge both rows into one and look for the min : tmp = bot + top
 
-
   for (var i = 1; i < top_row.length; i++ ) {
-    tmp_row[i] = bot_row[top_row.length-i-1] + top_row[i];
+    tmp_row[i] = bot_row[top_row.length-i] + top_row[i];
   }
   tmp_row[0] = str2.length+str1.length; // first cell of top row is the length of str2 i.e. worse case edit distance
-  
+  //alert(tmp_row);
+
   var whereToCutStr1 = 0 ;
   var currentMin = Number.MAX_SAFE_INTEGER;
 
@@ -116,8 +120,8 @@ function divide_conquer_bis(str1, str2)
   //alert("Where to cut ?"+whereToCut);
 
   var Part1OfStr1 = str1.substr(0, whereToCutStr1);
-  var Part1OfStr2 = str2.substr(0, whereToCutStr2);
-  var Part2OfStr1 = str1.substr(whereToCutStr1, str1.length);
+  var Part1OfStr2 = str2.substr(0, whereToCutStr2+1);
+  var Part2OfStr1 = str1.substr(whereToCutStr1-1, str1.length);
   var Part2OfStr2 = str2.substr(whereToCutStr2, str2.length);
   //alert("p1s1 : "+Part1OfStr1+" p1s2 "+Part1OfStr2+" p2s1 "+Part2OfStr1+"p2s2"+Part2OfStr2);
 
@@ -183,7 +187,7 @@ function reverseString(str) {
 
 /*
      A B C D E <- str1
-     0 1 2 3 4 5 <- top row
+ 0 1 2 3 4 5 <- top row
  G 1
  H 2
  I 3

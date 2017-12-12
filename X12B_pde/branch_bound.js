@@ -3,10 +3,13 @@ var best_path_so_far
 
 function branch_bound(str1, str2) 
 {
+    var timerStart = new Date();
     best_ed_so_far = Number.MAX_SAFE_INTEGER; //We initialize the best solution each time we call the algo
     best_path_so_far = "";
     branch_bound_bis(str1, str2, 0, ""); //On the first call of the recursion we take both strings and edit distance of 0
-    return { "ed" : best_ed_so_far, "path" : best_path_so_far};
+    var timerEnd = new Date();
+    var computationTime = timerEnd - timerStart;
+    return { "ed" : best_ed_so_far, "path" : best_path_so_far, "time" : computationTime};
 }
 
 function branch_bound_bis(str1, str2, ed, path)
