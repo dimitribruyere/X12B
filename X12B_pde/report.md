@@ -7,7 +7,9 @@
 * Christopher Jeamme
 * Dimitri Bruyère
 
-<!-- TOC -->
+
+
+## Table of contents
 
 - [1. Introduction](#1-introduction)
 - [2. Algorithms](#2-algorithms)
@@ -29,7 +31,11 @@
 
 ### 2.1. Classic 
 
+$$O(n+m)^{2}$$
+
 ### 2.2. Pure recursive
+
+$$O(3^{max\{n,m\}})$$
 
 ### 2.3. Branch and Bound
 
