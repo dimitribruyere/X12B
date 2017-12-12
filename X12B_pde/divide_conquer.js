@@ -52,7 +52,7 @@ function divide_conquer_bis(str1, str2)
   var str1Reverse = reverseString(str1);
   var str2Reverse = reverseString(str2);
 
-  for ( var i = 0; i < whereToCutStr2; i++ ) {
+  for ( var i = 0; i < whereToCutStr2-1; i++ ) {
     find_next(bot_row, tmp_row, str1Reverse, str2Reverse.charAt(i));
     var permutateTmpAndBot = bot_row;
     bot_row = tmp_row;
@@ -60,11 +60,11 @@ function divide_conquer_bis(str1, str2)
   }
 
   // We merge both rows into one and look for the min : tmp = bot + top
-  //alert(top_row);
-  //alert(bot_row);
+  console.log(top_row);
+  console.log(bot_row);
 
   for (var i = 0; i < top_row.length; i++ ) {
-    tmp_row[i] = bot_row[top_row.length-i] + top_row[i];
+    tmp_row[i] = bot_row[top_row.length-i-1] + top_row[i];
   }
   tmp_row[0] = str2.length+str1.length; // first cell of top row is the length of str2 i.e. worse case edit distance
 
