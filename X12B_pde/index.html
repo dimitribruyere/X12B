@@ -109,8 +109,10 @@
               customInput = false; // We don't want to display the matrices of all the tests;
               
              var howManyStrings = prompt("How many strings ?",10);
+             var stringLength = prompt("Length of strings ?",10);
+             var similarity = prompt("Percetage of similarity ?",10);
              var stringGenerator = new generator();
-             stringGenerator.generateStrings(howManyStrings);
+             stringGenerator.generateStrings(howManyStrings, stringLength, similarity);
              stringGenerator.showStrings();
             }
             else {
