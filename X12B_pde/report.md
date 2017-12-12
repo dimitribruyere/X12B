@@ -123,7 +123,12 @@ We need the two words, so the space complexity is :
 
 $$O(n+m)$$
 
-## 3. Evalution protocol
+## 3. Evaluation protocol
+
+### 3.2 Random string generator
+
+To test the differents algorithm, we create a generator of random strings. The generator ask you the number of string to generate, the length of the string, and the percentage of similarity between the 2 strings. 
+
 
 ## 4. Proteins
 
