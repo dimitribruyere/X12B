@@ -69,10 +69,7 @@ function alignmentWithArrowMatrix(arrowMatrix, str1, str2) {
         index++;
     }
 
-
-    //console.log(alignmentArray);
     var newString = reverseArrayToString(alignmentArray);
-    //console.log(newString);
     return newString;
 }
 

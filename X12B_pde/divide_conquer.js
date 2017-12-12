@@ -1,12 +1,17 @@
 var divideAndConquerEditDistance;
 function divide_conquer(str1, str2) {
+  var timerStart = new Date();
   divideAndConquerEditDistance=-1;
   p =divide_conquer_bis(str1, str2);
   //alert("wtf p ?? : "+p);
+  var timerEnd = new Date();
+  var computationTime = timerEnd - timerStart;
   return {
   "ed":
   divideAndConquerEditDistance, "path":
-    p
+    p, 
+    "time" : 
+    computationTime
   };
 }
 
@@ -68,7 +73,7 @@ function divide_conquer_bis(str1, str2)
     tmp_row[i] = bot_row[top_row.length-i] + top_row[i];
   }
   tmp_row[0] = str2.length+str1.length; // first cell of top row is the length of str2 i.e. worse case edit distance
-//alert(tmp_row);
+  //alert(tmp_row);
 
   var whereToCutStr1 = 0 ;
   var currentMin = Number.MAX_SAFE_INTEGER;

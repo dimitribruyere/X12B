@@ -1,8 +1,9 @@
 function approx_greedy(str1, str2)
 {
-  //On regarde chaque caractère un à un, si ils sont les mêmes on ne fait rien, sinon on remplace celui du plus court. Enfin, on additionne la différence de longueur des deux
+  //We look at characters one by one. If they are the same, we do nothing, else we substitute the character. Finally, we add the difference of length of the strings.
   var ed = 0;
   var path = "";
+  var timerStart = new Date();
   for(var i = 0; i < Math.min(str1.length,str2.length);i++)
   {
     path+='S';
@@ -26,5 +27,7 @@ function approx_greedy(str1, str2)
       path+='+';
     }
   }
-  return { "ed" : ed, "path" : path};
+  var timerEnd = new Date();
+  var computationTime = timerEnd - timerStart;
+  return { "ed" : ed, "path" : path, "time" : computationTime};
 }

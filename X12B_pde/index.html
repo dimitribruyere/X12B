@@ -83,13 +83,6 @@
         }
         function process() {
             reset();
-            var timerStart;
-            var timerEnd;
-            var computationTime;
-
-            timerStart = new Date();
-
-
             //Input
             var texts1 = document.getElementById("string1").value;
             var texts2 = document.getElementById("string2").value;
@@ -101,9 +94,10 @@
 
             console.log(algotype);
 
-
+    
             var text;
             var computeAlgo;
+            var computationTime;
             if (texts1 === "" && texts2 === ""){
               reset();
               customInput = false; // We don't want to display the matrices of all the tests;
@@ -125,29 +119,19 @@
                     resizeCanvas(texts1.length * 100 + 200, texts2.length * 100 + 200);
                     background(240);
                     computeAlgo = classic(texts1, texts2);
-                    text = computeAlgo.ed;
-                    alignmentCode = computeAlgo.path;
                     break;
                 case "rec":
                     computeAlgo = rec(texts1, texts2);
-                    text = computeAlgo.ed;
-                    alignmentCode = computeAlgo.path;
                     break;
                 case "divide":
                     computeAlgo = divide_conquer(texts1, texts2);
-                    text = computeAlgo.ed;
-                    alignmentCode = computeAlgo.path;
-                    //alert(alignmentCode);
                     break;
                 case "branch":
                     computeAlgo = branch_bound(texts1, texts2);
-                    text = computeAlgo.ed;
-                    alignmentCode = computeAlgo.path;
                     break;
                 case "greedy":
                     computeAlgo = approx_greedy(texts1, texts2);
-                    text = computeAlgo.ed;
-                    alignmentCode = computeAlgo.path;
+
                     break;
                 case "approx":
                     var minSize = min(texts1.length, texts2.length);
@@ -155,15 +139,15 @@
                     resizeCanvas(maxSize * 100 + 200, minSize * 100 + 200);
                     background(240);
                     computeAlgo = approx_classic(texts1, texts2, sizeOfDocument);
-                    text = computeAlgo.ed;
-                    alignmentCode = computeAlgo.path;
                     break;
                 default:
-                    text = "Error:Algorithm type undefined";
+                    computeAlgo.ed = "Error:Algorithm type undefined";
                     break;
             }
+            text = computeAlgo.ed;
+            alignmentCode = computeAlgo.path;
+            computationTime = computeAlgo.time;
             //Output
-            timerEnd = new Date();
             if (algotype === "approx")
             {
                 if (texts1.length < texts2.length)
@@ -174,7 +158,6 @@
             else 
                 alignmentDisplay(texts1, texts2, alignmentCode);
 
-            computationTime = timerEnd - timerStart;
             document.getElementById("reponse").innerHTML = "Distance d'edition : " + text + " et temps de calcul : " + computationTime + " ms.";
             
         }
