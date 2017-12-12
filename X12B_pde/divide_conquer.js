@@ -12,9 +12,11 @@ function divide_conquer(str1, str2) {
 
 function divide_conquer_bis(str1, str2)
 {
-  //alert("Appel sur :\nstr1 : "+str1+" str2 : "+str2);
+  // Décommenter pour voir l'appel en cours :
+  // alert("Appel sur :\nstr1 : "+str1+" str2 : "+str2);
 
-  // If length of str2 is 2 or less, we stop the recursion and find the edit distance between a VERY small str2 ( <= 2 ) and a QUITE small str1 (because it had been recursively cut down
+  // If length of str2 is 2 or less, we stop the recursion and find the edit distance between
+  // a VERY small str2 ( <= 2 ) and a QUITE small str1 (because it had been recursively cut down
 
   if (str2.length <= 2) {
     var classicCallOnSmallProblem = classic(str1, str2);
@@ -78,20 +80,14 @@ function divide_conquer_bis(str1, str2)
     }
   }
 
-  if (divideAndConquerEditDistance === -1) {
+  if (divideAndConquerEditDistance === -1) { // If the edit distance has not been found yet, we find it on the first pass
     divideAndConquerEditDistance = tmp_row[whereToCutStr1];
-    //alert("ED :"+divideAndConquerEditDistance);
   }
 
   whereToCutStr1--;
   //alert("whereToCut str1 : "+whereToCutStr1+" that's letter"+str1.charAt(whereToCutStr1));
   whereToCutStr1 = max(whereToCutStr1, 0);
-  //if (whereToCut===0) {
-  //  alert("Stop !");
-  //  return;
-  //}
 
-  //divideAndConquerPathCoordinateArray[str2.length / 2]=whereToCut;
   //alert("Where to cut ?"+whereToCut);
 
   var Part1OfStr1 = str1.substr(0, whereToCutStr1);
@@ -100,7 +96,9 @@ function divide_conquer_bis(str1, str2)
   var Part2OfStr2 = str2.substr(whereToCutStr2, str2.length);
   //alert("p1s1 : "+Part1OfStr1+" p1s2 "+Part1OfStr2+" p2s1 "+Part2OfStr1+"p2s2"+Part2OfStr2);
 
-  //alert("(1):Appels récursifs sur\n"+str1+"==>"+Part1OfStr1+"\net\n"+str2+"==>"+Part1OfStr2+"\net sur\n"+str1+"==>"+Part2OfStr1+"\net\n"+str2+"==>"+Part2OfStr2);
+
+  // Décommenter pour voir les appels récursifs qui vont être faits :
+  // alert("(1):Appels récursifs sur\n"+str1+"==>"+Part1OfStr1+"\net\n"+str2+"==>"+Part1OfStr2+"\net sur\n"+str1+"==>"+Part2OfStr1+"\net\n"+str2+"==>"+Part2OfStr2);
 
 
   var path_tmp="";
@@ -111,7 +109,7 @@ function divide_conquer_bis(str1, str2)
   } else { // We have to add the first part of str2 to the second part so that it is treated !
 
     Part2OfStr2 = Part1OfStr2+Part2OfStr2; 
-    alert(Part2OfStr2);
+    //alert(Part2OfStr2);
     //rajout = "";
     //for (var i = 0 ; i < Part1OfStr2.length ; i++) {
     // rajout += "+"; 
@@ -160,7 +158,7 @@ function reverseString(str) {
 
 /*
      A B C D E <- str1
- 0 1 2 3 4 5 <- top row
+     0 1 2 3 4 5 <- top row
  G 1
  H 2
  I 3
