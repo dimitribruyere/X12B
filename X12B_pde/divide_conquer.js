@@ -2,7 +2,7 @@ var divideAndConquerEditDistance;
 function divide_conquer(str1, str2) {
   divideAndConquerEditDistance=-1;
   p =divide_conquer_bis(str1, str2);
-  //alert("wtf p ?? : "+p);
+  console.log(p);
   return {
   "ed":
   divideAndConquerEditDistance, "path":
@@ -17,8 +17,25 @@ function divide_conquer_bis(str1, str2)
 
   // If length of str2 is 2 or less, we stop the recursion and find the edit distance between
   // a VERY small str2 ( <= 2 ) and a QUITE small str1 (because it had been recursively cut down
-
-  if (str2.length <= 2) {
+  
+  if(str1.length === 0) 
+  {
+    var path_tmp = "";
+    for( var i = 0; i < str2.length ; i++)
+      path_tmp += "+";
+    return path_tmp;
+  }
+  
+  if(str2.length === 0)
+  {
+    var path_tmp = "";
+    for( var i = 0; i < str1.length ; i++)
+      path_tmp += "-";
+    return path_tmp;
+  }
+  
+  
+  if (str2.length <= 2 ||  str1.length <=2 ) {
     var classicCallOnSmallProblem = classic(str1, str2);
     var path_bit = classicCallOnSmallProblem.path;
     if (divideAndConquerEditDistance === -1) {
@@ -46,40 +63,48 @@ function divide_conquer_bis(str1, str2)
     var permutateTmpAndTop = top_row;
     top_row = tmp_row;
     tmp_row = permutateTmpAndTop;
+    
   }
 
   // We find the row at position length2 /2 starting from the bottom on the reversed strings :
   var str1Reverse = reverseString(str1);
   var str2Reverse = reverseString(str2);
 
-  for ( var i = 0; i < whereToCutStr2-1; i++ ) {
+  for ( var i = 0; i < whereToCutStr2; i++ ) {
     find_next(bot_row, tmp_row, str1Reverse, str2Reverse.charAt(i));
     var permutateTmpAndBot = bot_row;
     bot_row = tmp_row;
     tmp_row = permutateTmpAndBot;
+    
   }
 
   // We merge both rows into one and look for the min : tmp = bot + top
-  console.log(top_row);
-  console.log(bot_row);
 
-  for (var i = 0; i < top_row.length; i++ ) {
+
+  for (var i = 1; i < top_row.length; i++ ) {
     tmp_row[i] = bot_row[top_row.length-i-1] + top_row[i];
   }
   tmp_row[0] = str2.length+str1.length; // first cell of top row is the length of str2 i.e. worse case edit distance
-
+  
   var whereToCutStr1 = 0 ;
   var currentMin = Number.MAX_SAFE_INTEGER;
 
-  //alert(tmp_row);
-
+  
+  var bool = 0;
   for (var i = 0; i < tmp_row.length; i++) { // To know where to cut s1 we look for argmin (tmp_row) 
+
+    
     if ( tmp_row[i] <= currentMin ) {
       whereToCutStr1 = i; 
       currentMin = tmp_row[i];
     }
   }
 
+  
+  
+  console.log("tmp row : "+tmp_row);
+  console.log("i = "+whereToCutStr1);
+  console.log(str2.charAt(whereToCutStr2));
   if (divideAndConquerEditDistance === -1) { // If the edit distance has not been found yet, we find it on the first pass
     divideAndConquerEditDistance = tmp_row[whereToCutStr1];
   }
@@ -98,17 +123,17 @@ function divide_conquer_bis(str1, str2)
 
 
   // Décommenter pour voir les appels récursifs qui vont être faits :
-  // alert("(1):Appels récursifs sur\n"+str1+"==>"+Part1OfStr1+"\net\n"+str2+"==>"+Part1OfStr2+"\net sur\n"+str1+"==>"+Part2OfStr1+"\net\n"+str2+"==>"+Part2OfStr2);
+  console.log("(1):Appels récursifs sur\n"+str1+"==>"+Part1OfStr1+"\net\n"+str2+"==>"+Part1OfStr2+"\net sur\n"+str1+"==>"+Part2OfStr1+"\net\n"+str2+"==>"+Part2OfStr2);
 
 
   var path_tmp="";
-  if (Part1OfStr1.length != 0 ) {//&& Part1OfStr2.length != 0) {
+  //if (Part1OfStr1.length != 0 ) {//&& Part1OfStr2.length != 0) {
     var rajout = divide_conquer_bis(Part1OfStr1, Part1OfStr2);
     //alert("(1) "+str1+" et "+str2+" me donnent : "+rajout);
     path_tmp += rajout;
-  } else { // We have to add the first part of str2 to the second part so that it is treated !
-
-    Part2OfStr2 = Part1OfStr2+Part2OfStr2; 
+  //} else { // We have to add the first part of str2 to the second part so that it is treated !
+    //return "";
+    //Part2OfStr2 = Part1OfStr2+Part2OfStr2; 
     //alert(Part2OfStr2);
     //rajout = "";
     //for (var i = 0 ; i < Part1OfStr2.length ; i++) {
@@ -116,24 +141,24 @@ function divide_conquer_bis(str1, str2)
     //}
     ////alert("(1) ragout ? "+rajout);
     // path_tmp += rajout;
-  }
+ // }
   //alert("(2):Appels récursifs sur\n"+str1+"==>"+Part1OfStr1+"\net\n"+str2+"==>"+Part1OfStr2+"\net sur\n"+str1+"==>"+Part2OfStr1+"\net\n"+str2+"==>"+Part2OfStr2);
 
-  if (Part2OfStr1.length != 0  ) {//&& Part2OfStr2.length != 0) {
+  //if (Part2OfStr1.length != 0  ) {//&& Part2OfStr2.length != 0) {
 
 
     var rajout = divide_conquer_bis(Part2OfStr1, Part2OfStr2);
     //alert("(2) "+str1+" et "+str2+" me donnent : "+rajout);
     path_tmp += rajout;
-  } else {
+ /* } else {
     rajout = "";
     for (var i = 0; i < Part2OfStr2.length; i++) {
       rajout += "+";
     }
     //alert("(2) ragout ? "+rajout);
 
-    path_tmp += rajout;
-  }
+    //path_tmp += rajout;
+  }*/
   return path_tmp;
 }
 
