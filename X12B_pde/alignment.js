@@ -9,25 +9,25 @@ function alignmentDisplay(str1, str2, alignmentCoding) {
         var sw = alignmentCoding.charAt(i);
         switch (sw) {
             case '+':
-                firstStr += "<span style='width:2em;display:inline-block; color:chartreuse; height : 1em;'>+</span>";
-                scndStr += "<span style='width:2em;display:inline-block;height : 1.5em;'>" + str2.charAt(idxStr2) + "</span>";
-                alignStr += "<span style='width:2em;display:inline-block;height : 1em;'> </span>";
+                firstStr += "<span style='width:1.5em;display:inline-block;text-align: center; color:chartreuse; height : 1em;'>+</span>";
+                scndStr += "<span style='width:1.5em;display:inline-block; text-align: center;height : 1.5em;'>" + str2.charAt(idxStr2) + "</span>";
+                alignStr += "<span style='width:1.5em;display:inline-block;text-align: center;height : 1em;'> </span>";
                 idxStr2++;
                 break;
             case '-':
-                scndStr += "<span style='width:2em;display:inline-block;color:chartreuse;height : 1.5em;'>+</span>";
-                firstStr += "<span style='width:2em;display:inline-block;height : 1em;'>" + str1.charAt(idxStr1) + "</span>";
-                alignStr += "<span style='width:2em;display:inline-block;height : 1em;'> </span>";
+                scndStr += "<span style='width:1.5em;display:inline-block;text-align: center;color:chartreuse;height : 1.5em;'>+</span>";
+                firstStr += "<span style='width:1.5em;display:inline-block;text-align: center;height : 1em;'>" + str1.charAt(idxStr1) + "</span>";
+                alignStr += "<span style='width:1.5em;display:inline-block;text-align: center;height : 1em;'> </span>";
 
                 idxStr1++;
                 break;
             case 'S':
-                firstStr += "<span style='width:2em;display:inline-block;height : 1em;'>" + str1.charAt(idxStr1) + "</span>";
-                scndStr += "<span style='width:2em;display:inline-block;height : 1.5em;'>" + str2.charAt(idxStr2) + "</span>";
+                firstStr += "<span style='width:1.5em;display:inline-block;text-align: center;height : 1em;'>" + str1.charAt(idxStr1) + "</span>";
+                scndStr += "<span style='width:1.5em;display:inline-block;text-align: center;height : 1.5em;'>" + str2.charAt(idxStr2) + "</span>";
                 if (str1.charAt(idxStr1) === str2.charAt(idxStr2)) {
-                    alignStr += "<span style='width:2em;display:inline-block;color:chartreuse;height : 1em;'> </span>";
+                    alignStr += "<span style='width:1.5em;display:inline-block;text-align: center;color:chartreuse;height : 1em;'> </span>";
                 } else {
-                    alignStr += "<span style='width:2em;display:inline-block;color:chartreuse;height : 1em;'>S</span>";
+                    alignStr += "<span style='width:1.5em;display:inline-block;text-align: center;color:chartreuse;height : 1em;'>S</span>";
                 }
                 idxStr1++;
                 idxStr2++;
