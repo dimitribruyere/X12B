@@ -61,10 +61,10 @@
     <br/>
     <input type="radio" name="algotype" value="branch"> Branch and Bound ED
     <br/>
-    <input type="radio" name="algotype" value="greedy"> Approximated Greedy ED
+    <input type="radio" name="algotype" value="greedy"> Greedy ED
     <br/>
     <input type="radio" name="algotype" value="approx"> Approximated Classic ED
-    <input type="text" id="sizeK" name="sizeK" value="SizeK" />
+    <input type="text" id="sizeK" name="sizeK" placeholder="K" />
     <br/>
 
     <button class="btn btn-info" onclick="process()">Process</button>
@@ -82,6 +82,7 @@
             resizeCanvas(0, 0);
         }
         function process() {
+            reset();
             var timerStart;
             var timerEnd;
             var computationTime;
@@ -108,8 +109,10 @@
               customInput = false; // We don't want to display the matrices of all the tests;
               
              var howManyStrings = prompt("How many strings ?",10);
+             var stringLength = prompt("Length of strings ?",10);
+             var similarity = prompt("Percetage of similarity ?",10);
              var stringGenerator = new generator();
-             stringGenerator.generateStrings(howManyStrings);
+             stringGenerator.generateStrings(howManyStrings, stringLength, similarity);
              stringGenerator.showStrings();
             }
             else {
