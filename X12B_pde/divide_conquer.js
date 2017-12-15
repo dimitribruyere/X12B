@@ -1,176 +1,131 @@
-var divideAndConquerEditDistance;
+var top_row = [];
+var bot_row = [];
+var tmp_row = [];
+var max_length;
 function divide_conquer(str1, str2) {
+
   var timerStart = new Date();
-  divideAndConquerEditDistance=-1;
-  p =divide_conquer_bis(str1, str2);
+  max_length = max(str1.length, str2.length);
+
+  // We initialize top row and bot row:
+  for ( var i = 0; i <= max_length; i++ ) {
+    top_row[i] = i;
+    bot_row[i] = i;
+  }
+
+  var path = divide_conquer_bis(str1, str2);
   var timerEnd = new Date();
   var computationTime = timerEnd - timerStart;
+  var divideAndConquerEditDistance = findEDFromPath(path, str1, str2);
+
   return {
   "ed":
   divideAndConquerEditDistance, "path":
-    p, 
+    path, 
     "time" : 
     computationTime
   };
 }
 
-function divide_conquer_bis(str1, str2)
-{
-  // Décommenter pour voir l'appel en cours :
-  // alert("Appel sur :\nstr1 : "+str1+" str2 : "+str2);
+function divide_conquer_bis(str1, str2) { 
 
-  // If length of str2 is 2 or less, we stop the recursion and find the edit distance between
-  // a VERY small str2 ( <= 2 ) and a QUITE small str1 (because it had been recursively cut down
-  
-  if(str1.length === 0) 
-  {
-    var path_tmp = "";
-    for( var i = 0; i < str2.length ; i++)
-      path_tmp += "+";
-    return path_tmp;
-  }
-  
-  if(str2.length === 0)
-  {
-    var path_tmp = "";
-    for( var i = 0; i < str1.length ; i++)
-      path_tmp += "-";
-    return path_tmp;
-  }
-  
-  
-  if (str2.length <= 2 ||  str1.length <=2 ) {
-    var classicCallOnSmallProblem = classic(str1, str2);
-    var path_bit = classicCallOnSmallProblem.path;
-    if (divideAndConquerEditDistance === -1) {
-      divideAndConquerEditDistance = classicCallOnSmallProblem.ed;
-    }
-    return  path_bit;
-  }
-
-  var top_row = [];
-  var bot_row = [];
-  var tmp_row = [];
-  var whereToCutStr2 = str2.length / 2;
-
-  // We initialize top row and bot row:
-  for ( var i = 0; i <= str1.length; i++ ) {
+  // We (re)initialize top row and bot row:
+  for ( var i = 0; i <= max_length; i++ ) {
     top_row[i] = i;
     bot_row[i] = i;
   }
 
-  //alert(str2.charAt((str2.length / 2)-1));
-  // We find the row at position length2 /2 starting from the top 
 
-  for ( var i = 0; i <= whereToCutStr2; i++ ) {
-    find_next(top_row, tmp_row, str1, str2.charAt(i));
+  // Edge cases : str1.length is 0 or 1 : we use the classical approach to find the alignment on a
+  // VERY small str1 ( < 2 ) and a QUITE small str2 (because it had been recursively cut ) 
+
+  if (str1.length === 0 || str1.length === 1 || str2.length === 0) {
+    classicED = classic(str1, str2);
+    var classicalMethodPath = classicED.path;
+    return classicalMethodPath;
+  }
+  // ELSE we cut str1 in half and find where is the best place to cut str2 :
+
+  var indexToCutStr1 =  int((str1.length-1)/2);
+
+  // We find the row at position str1.length / 2 starting from the top : 
+
+  for ( var i = 0; i <= indexToCutStr1; i++ ) {
+    find_next(top_row, tmp_row, str2, str1.charAt(i));
     var permutateTmpAndTop = top_row;
     top_row = tmp_row;
     tmp_row = permutateTmpAndTop;
-    
   }
 
-  // We find the row at position length2 /2 starting from the bottom on the reversed strings :
+  // We find the row at position str1.length / 2 starting from the bottom on the reversed strings :
   var str1Reverse = reverseString(str1);
   var str2Reverse = reverseString(str2);
 
-  for ( var i = 0; i < whereToCutStr2-1; i++ ) {
-    find_next(bot_row, tmp_row, str1Reverse, str2Reverse.charAt(i));
+  for ( var i = 0; i <= str1.length-indexToCutStr1-1; i++ ) {
+    find_next(bot_row, tmp_row, str2Reverse, str1Reverse.charAt(i));
     var permutateTmpAndBot = bot_row;
     bot_row = tmp_row;
     tmp_row = permutateTmpAndBot;
-    
   }
 
   // We merge both rows into one and look for the min : tmp = bot + top
 
-  for (var i = 1; i < top_row.length; i++ ) {
-    tmp_row[i] = bot_row[top_row.length-i] + top_row[i];
+  for (var i = 0; i < str2.length; i++ ) {
+    tmp_row[i] = top_row[i+1] + bot_row[str2.length-i];
   }
-  tmp_row[0] = str2.length+str1.length; // first cell of top row is the length of str2 i.e. worse case edit distance
-  //alert(tmp_row);
 
-  var whereToCutStr1 = 0 ;
+  var indexToCutStr2 = 0 ;
   var currentMin = Number.MAX_SAFE_INTEGER;
 
-  
-  var bool = 0;
-  for (var i = 0; i < tmp_row.length; i++) { // To know where to cut s1 we look for argmin (tmp_row) 
-
-    
+  for (var i = 0; i < str2.length-1; i++) { // To know where to cut s2 we look for argmin (tmp_row) 
     if ( tmp_row[i] <= currentMin ) {
-      whereToCutStr1 = i; 
+      indexToCutStr2 = i; 
       currentMin = tmp_row[i];
     }
   }
 
-  
-  
-  console.log("tmp row : "+tmp_row);
-  console.log("i = "+whereToCutStr1);
-  console.log(str2.charAt(whereToCutStr2));
-  if (divideAndConquerEditDistance === -1) { // If the edit distance has not been found yet, we find it on the first pass
-    divideAndConquerEditDistance = tmp_row[whereToCutStr1];
+  var Part1OfStr1 = str1.substr(0, indexToCutStr1+1);
+  var Part1OfStr2 = str2.substr(0, indexToCutStr2+1);
+  var Part2OfStr1 = str1.substr(indexToCutStr1+1, str1.length);
+  var Part2OfStr2 = str2.substr(indexToCutStr2+1, str2.length);
+
+  var alignmentPath = "" ;
+  var subcall1 = divide_conquer_bis(Part1OfStr1, Part1OfStr2);
+  var subcall2 = divide_conquer_bis(Part2OfStr1, Part2OfStr2);
+
+  // We have to check if this happens :
+  //     SC1  SC2
+  //   ....+  -....
+
+  // Or if this happnes :
+  //     SC1  SC2
+  //   ....-  +....
+
+  // If it is the case, we simply merge both of them in an 'S'
+
+  if ( (subcall1.charAt(subcall1.length - 1 ) === '+' && subcall2.charAt(0) === '-') ||
+    ( subcall1.charAt(subcall1.length - 1 ) === '-' && subcall2.charAt(0) === '+')
+    ) {      
+    subcall1 = subcall1.substr(0, subcall1.length - 1);
+    subcall2 = subcall2.replaceAt(0, "S");
   }
+  alignmentPath += subcall1 ;
+  alignmentPath += subcall2;
 
-  whereToCutStr1--;
-  //alert("whereToCut str1 : "+whereToCutStr1+" that's letter"+str1.charAt(whereToCutStr1));
-  whereToCutStr1 = max(whereToCutStr1, 0);
-
-  //alert("Where to cut ?"+whereToCut);
-
-  var Part1OfStr1 = str1.substr(0, whereToCutStr1);
-  var Part1OfStr2 = str2.substr(0, whereToCutStr2+1);
-  var Part2OfStr1 = str1.substr(whereToCutStr1-1, str1.length);
-  var Part2OfStr2 = str2.substr(whereToCutStr2, str2.length);
-  //alert("p1s1 : "+Part1OfStr1+" p1s2 "+Part1OfStr2+" p2s1 "+Part2OfStr1+"p2s2"+Part2OfStr2);
-
-
-  // Décommenter pour voir les appels récursifs qui vont être faits :
-  console.log("(1):Appels récursifs sur\n"+str1+"==>"+Part1OfStr1+"\net\n"+str2+"==>"+Part1OfStr2+"\net sur\n"+str1+"==>"+Part2OfStr1+"\net\n"+str2+"==>"+Part2OfStr2);
-
-
-  var path_tmp="";
-  //if (Part1OfStr1.length != 0 ) {//&& Part1OfStr2.length != 0) {
-    var rajout = divide_conquer_bis(Part1OfStr1, Part1OfStr2);
-    //alert("(1) "+str1+" et "+str2+" me donnent : "+rajout);
-    path_tmp += rajout;
-  //} else { // We have to add the first part of str2 to the second part so that it is treated !
-    //return "";
-    //Part2OfStr2 = Part1OfStr2+Part2OfStr2; 
-    //alert(Part2OfStr2);
-    //rajout = "";
-    //for (var i = 0 ; i < Part1OfStr2.length ; i++) {
-    // rajout += "+"; 
-    //}
-    ////alert("(1) ragout ? "+rajout);
-    // path_tmp += rajout;
- // }
-  //alert("(2):Appels récursifs sur\n"+str1+"==>"+Part1OfStr1+"\net\n"+str2+"==>"+Part1OfStr2+"\net sur\n"+str1+"==>"+Part2OfStr1+"\net\n"+str2+"==>"+Part2OfStr2);
-
-  //if (Part2OfStr1.length != 0  ) {//&& Part2OfStr2.length != 0) {
-
-
-    var rajout = divide_conquer_bis(Part2OfStr1, Part2OfStr2);
-    //alert("(2) "+str1+" et "+str2+" me donnent : "+rajout);
-    path_tmp += rajout;
- /* } else {
-    rajout = "";
-    for (var i = 0; i < Part2OfStr2.length; i++) {
-      rajout += "+";
-    }
-    //alert("(2) ragout ? "+rajout);
-
-    //path_tmp += rajout;
-  }*/
-  return path_tmp;
+  return alignmentPath;
 }
 
-function find_next(top_row, tmp_row, str1, charOfStr2) {
-  //alert(charOfStr2);
+String.prototype.replaceAt=function(index, replacement) {
+  return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
+}
+
+function find_next(top_row, tmp_row, str2, charOfStr1) {
+
+  // given a row top_row, this function puts into tmp_row the row below it
+  // with regards to the corresponding character of str1 and the whole of str2
   tmp_row[0] = top_row[0] + 1 ;
   for ( var i = 1; i < top_row.length; i++ ) {
-    if (charOfStr2 === str1.charAt(i-1)) { 
+    if (charOfStr1 === str2.charAt(i-1)) { 
       tmp_row[i]=top_row[i-1];
     } else {
       tmp_row[i] = 1 + min(tmp_row[i-1], top_row[i-1], top_row[i])
@@ -185,8 +140,36 @@ function reverseString(str) {
   return joinArray;
 }
 
+function findEDFromPath(path, str1, str2) {
+  var editDistanceFromPath = 0;
+  var str1Index = 0;
+  var str2Index = 0;
+
+  for (i = 0; i < path.length; i++ ) {
+    if (path.charAt(i) === 'S') {
+      if (str1.charAt(str1Index) !== str2.charAt(str2Index)) {
+        editDistanceFromPath++;
+        str1Index++;
+        str2Index++;
+      } else {
+        str1Index++;
+        str2Index++;
+      }
+    } else {
+      editDistanceFromPath++;
+      if (path.charAt(i) === '+') {
+        str2Index++;
+      }      
+      if (path.charAt(i) === '-') {
+        str1Index++;
+      }
+    }
+  }
+  return editDistanceFromPath;
+}
+
 /*
-     A B C D E <- str1
+     A B C D E <- str2
  0 1 2 3 4 5 <- top row
  G 1
  H 2
@@ -198,6 +181,6 @@ function reverseString(str) {
  s
  t
  r
- 2
+ 1
  
  */
