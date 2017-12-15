@@ -3,7 +3,7 @@ var bot_row = [];
 var tmp_row = [];
 var max_length;
 function divide_conquer(str1, str2) {
-
+  alert("rouge");
   var timerStart = new Date();
   max_length = max(str1.length, str2.length);
 
