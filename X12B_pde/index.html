@@ -149,6 +149,8 @@
             var text;
             var computeAlgo;
             var sizeOfDocument = document.getElementById("sizeK").value;
+            customInput = true; // We want to display the matrix 
+            
             //Random
             if(inputType==="random")
             {
@@ -168,8 +170,9 @@
               
                 if(inputType=="protein")
                 {
-                  var texts1 = proteins[0].sequence.substr(0,20);
-                  var texts2 = proteins[1].sequence.substr(0,20);
+                  customInput = false; // We don't want to display the matrices of all the tests;  
+                  var texts1 = random(proteins).sequence;
+                  var texts2 = random(proteins).sequence;                 
                 }
                 else
                 {
@@ -179,18 +182,20 @@
                 
                 
                 
-                customInput = true; // We want to display the matrix 
                 switch (algotype)
                 {
                     case "lcs":
                         text = lcs(texts1, texts2);
                         break;
                     case "classic":
-                        resizeCanvas(texts1.length * 100 + 200, texts2.length * 100 + 200);
+                        if (customInput){
+                            resizeCanvas(texts1.length * 100 + 200, texts2.length * 100 + 200);
+                        }
                         background(240);
                         computeAlgo = classic(texts1, texts2);
                         text = computeAlgo.ed;
                         alignmentCode = computeAlgo.path;
+
                         break;
                     case "rec":
                         computeAlgo = rec(texts1, texts2);
@@ -238,7 +243,6 @@
                 }
                 else 
                     alignmentDisplay(texts1, texts2, alignmentCode);
-
                 computationTime = timerEnd - timerStart;
                 document.getElementById("reponse").innerHTML = "Distance d'edition : " + text + " et temps de calcul : " + computationTime + " ms.";
             }

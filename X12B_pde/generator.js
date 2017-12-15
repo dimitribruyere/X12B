@@ -54,7 +54,6 @@ function generator(algotype, sizeOfDocument) {
     this.showStrings = function () {
         var results = "";
         for (var i = 0; i < this.stringSet1.length; i++) {
-            computeAlgo = branch_bound(this.stringSet1[i], this.stringSet2[i]);
             switch (this.algotype)
             {
                 case "classic":
