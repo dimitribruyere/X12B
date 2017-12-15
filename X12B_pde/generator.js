@@ -63,10 +63,10 @@ function generator(algotype, sizeOfDocument) {
                     computeAlgo = rec(this.stringSet1[i], this.stringSet2[i]);
                     break;
                 case "divide":
-                    computeAlgo = divide(this.stringSet1[i], this.stringSet2[i]);
+                    computeAlgo = divide_conquer(this.stringSet1[i], this.stringSet2[i]);
                     break;
                 case "branch":
-                    computeAlgo = branch(this.stringSet1[i], this.stringSet2[i]);
+                    computeAlgo = branch_bound(this.stringSet1[i], this.stringSet2[i]);
                     break;
                 case "greedy":
                     computeAlgo = approx_greedy(this.stringSet1[i], this.stringSet2[i]);
