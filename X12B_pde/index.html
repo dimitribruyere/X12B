@@ -1,10 +1,9 @@
 <html>
-
-<head>
-    <meta charset="UTF-8">
-
-
-    <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
+    <head>
+        <meta charset="UTF-8">
+    
+    
+        <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
   <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
   <script language="javascript" type="text/javascript" src="libraries/p5.dom.js"></script>
   <script language="javascript" type="text/javascript" src="alignment.js"></script>
@@ -21,7 +20,7 @@
   <!-- OK, YOU CAN MAKE CHANGES BELOW THIS LINE AGAIN -->
 
     <!-- This line removes any default padding and style. 
-  You might only need one of these values set. -->
+    You might only need one of these values set. -->
 
     <style>
         body {
@@ -46,13 +45,56 @@
 
 <body>
     <h1 class="glyphicon glyphicon-th-large">Edit Distance Algorithms</h1>
-    <br/> String 1
-    <input class="form-control" type="text" id="string1" />
-    <br/> String 2
-    <input class="form-control" type="text" id="string2" />
-    <br/>
+    
+    <h2>Input data type</h2>
+
+    
+    <form id="inputForm">
+        <input type="radio" name="inputtype" value="none" checked/> Aucun
+        <br/>
+        <input type="radio" name="inputtype" value="text"/> Manual strings
+        <br/>
+        <input type="radio" name="inputtype" value="random"/> Random strings
+        <br/>
+        <input type="radio" name="inputtype" value="protein"/> Protein
+        <br/>
+    </form>
+    
+    <!-- Interface for input -->
+    <div id="input"></div>
+                
+    <script>
+        $(document).ready(function()
+        {
+            $('input[type=radio]').click(function()
+            {
+                if (this.name == "inputtype")
+                {
+                    switch(this.value)
+                    {
+                    case "none":
+                    printNoInterface();
+                    break;
+                    case "protein":
+                    printProteinInterface();
+                    document.getElementById('file-input').addEventListener('change', proteinImport, false);
+                    break;
+                    case "random":
+                    printRandomInterface();
+                    break;
+                    case "text":
+                    proteins = [];
+                    printTextInterface();
+                    break;
+                    }
+                }
+            });
+        });
+    </script>
     
     <p id="result"><p/>
+    
+    <h2>Algorithm type</h2>
 
     <input type="radio" name="algotype" value="lcs"> LCS
     <br/>
@@ -69,10 +111,6 @@
     <input type="radio" name="algotype" value="approx"> Approximated Classic ED
     <input type="text" id="sizeK" name="sizeK" placeholder="K" />
     <br/>
-    <input type="file" id="file-input" />
-    <p id="file_error"></p>
-    <h3>Contents of the file:</h3>
-    <pre id="file-content"></pre>
     
     <button class="btn btn-info" onclick="process()">Process</button>
     <button class="btn btn-warning" onclick="reset()">Reset</button>
@@ -86,7 +124,6 @@
     </div>
 
     <script>
-
         function reset()
         {
             document.getElementById("reponse").innerHTML = "Reponse"; //CHRIS
@@ -97,89 +134,155 @@
         function process()
         {
             reset();
-            //Input
-            var texts1 = document.getElementById("string1").value;
-            var texts2 = document.getElementById("string2").value;
-            var sizeOfDocument = document.getElementById("sizeK").value;
+            var timerStart;
+            var timerEnd;
+            var computationTime;
 
-            //Process
+            timerStart = new Date();
 
             var algotype = $('input[name=algotype]:checked').val();
+            var inputType = $('input[name=inputtype]:checked').val();
 
             console.log(algotype);
+            console.log(inputType);
 
-    
             var text;
             var computeAlgo;
-            var computationTime;
-            if (texts1 === "" && texts2 === ""){
-              reset();
-              customInput = false; // We don't want to display the matrices of all the tests;
-              
-             var howManyStrings = prompt("How many strings ?",10);
-             var stringLength = prompt("Length of strings ?",10);
-             var similarity = prompt("Percetage of similarity ?",10);
-             var stringGenerator = new generator();
-             stringGenerator.generateStrings(howManyStrings, stringLength, similarity);
-             stringGenerator.showStrings();
-            }
-            else
-            {
-              customInput = true; // We want to display the matrix 
-              switch (algotype)
-              {
-                case "lcs":
-                    text = lcs(texts1, texts2);
-                    break;
-                case "classic":
-                    resizeCanvas(texts1.length * 100 + 200, texts2.length * 100 + 200);
-                    background(240);
-                    computeAlgo = classic(texts1, texts2);
-                    break;
-                case "rec":
-                    computeAlgo = rec(texts1, texts2);
-                    break;
-                case "divide":
-                    computeAlgo = divide_conquer(texts1, texts2);
-                    break;
-                case "branch":
-                    computeAlgo = branch_bound(texts1, texts2);
-                    break;
-                case "greedy":
-                    computeAlgo = approx_greedy(texts1, texts2);
-
-                    break;
-                case "approx":
-                    var minSize = min(texts1.length, texts2.length);
-                    var maxSize = max(texts1.length, texts2.length);
-                    resizeCanvas(maxSize * 100 + 200, minSize * 100 + 200);
-                    background(240);
-                    computeAlgo = approx_classic(texts1, texts2, sizeOfDocument);
-                    break;
-                default:
-                    computeAlgo.ed = "Error:Algorithm type undefined";
-                    break;
-            }
-            text = computeAlgo.ed;
-            alignmentCode = computeAlgo.path;
-            computationTime = computeAlgo.time;
-
-            //Output
-            if (algotype === "approx")
-            {
-                if (texts1.length < texts2.length)
-                    alignmentDisplay(texts2, texts1, alignmentCode); 
-                else
-                    alignmentDisplay(texts1, texts2, alignmentCode); 
-            }
-            else 
-                alignmentDisplay(texts1, texts2, alignmentCode);
-
-            document.getElementById("reponse").innerHTML = "Distance d'edition : " + text + " et temps de calcul : " + computationTime + " ms.";
             
-          }
-        }
+            //Random
+            if(inputType==="random")
+            {
+                reset();
+                customInput = false; // We don't want to display the matrices of all the tests;
+                
+                var howManyStrings = document.getElementById("number").value;
+                var stringLength = document.getElementById("length").value;
+                var similarity = document.getElementById("similarity").value;
+                
+                var stringGenerator = new generator();
+                stringGenerator.generateStrings(howManyStrings, stringLength, similarity);
+                stringGenerator.showStrings();
+            }
+            else //Text
+            {
+              
+                if(inputType=="protein")
+                {
+                  var texts1 = proteins[0].sequence.substr(0,20);
+                  var texts2 = proteins[1].sequence.substr(0,20);
+                }
+                else
+                {
+                  var texts1 = document.getElementById("string1").value;
+                  var texts2 = document.getElementById("string2").value;
+                }
+                
+                var sizeOfDocument = document.getElementById("sizeK").value;
+                
+                customInput = true; // We want to display the matrix 
+                switch (algotype)
+                {
+                    case "lcs":
+                        text = lcs(texts1, texts2);
+                        break;
+                    case "classic":
+                        resizeCanvas(texts1.length * 100 + 200, texts2.length * 100 + 200);
+                        background(240);
+                        computeAlgo = classic(texts1, texts2);
+                        text = computeAlgo.ed;
+                        alignmentCode = computeAlgo.path;
+                        break;
+                    case "rec":
+                        computeAlgo = rec(texts1, texts2);
+                        text = computeAlgo.ed;
+                        alignmentCode = computeAlgo.path;
+                        break;
+                    case "divide":
+                        computeAlgo = divide_conquer(texts1, texts2);
+                        text = computeAlgo.ed;
+                        alignmentCode = computeAlgo.path;
+                        //alert(alignmentCode);
+                        break;
+                    case "branch":
+                        computeAlgo = branch_bound(texts1, texts2);
+                        text = computeAlgo.ed;
+                        alignmentCode = computeAlgo.path;
+                        break;
+                    case "greedy":
+                        computeAlgo = approx_greedy(texts1, texts2);
+                        text = computeAlgo.ed;
+                        alignmentCode = computeAlgo.path;
+                        break;
+                    case "approx":
+                        var minSize = min(texts1.length, texts2.length);
+                        var maxSize = max(texts1.length, texts2.length);
+                        resizeCanvas(maxSize * 100 + 200, minSize * 100 + 200);
+                        background(240);
+                        computeAlgo = approx_classic(texts1, texts2, sizeOfDocument);
+                        text = computeAlgo.ed;
+                        alignmentCode = computeAlgo.path;
+                        break;
+                    default:
+                        text = "Error:Algorithm type undefined";
+                        break;
+                }
+            
+                //Output
+                timerEnd = new Date();
+                if (algotype === "approx")
+                {
+                    if (texts1.length < texts2.length)
+                        alignmentDisplay(texts2, texts1, alignmentCode); 
+                    else
+                        alignmentDisplay(texts1, texts2, alignmentCode); 
+                }
+                else 
+                    alignmentDisplay(texts1, texts2, alignmentCode);
 
+                computationTime = timerEnd - timerStart;
+                document.getElementById("reponse").innerHTML = "Distance d'edition : " + text + " et temps de calcul : " + computationTime + " ms.";
+            }
+        }
+        
+        //Listener on selection of input type
+        
+        function printNoInterface()
+        {
+            $("#input").html("");
+        }
+        function printRandomInterface()
+        {
+            document.getElementById("input").style.visibility = "visible"; 
+            $("#input").html(
+            '<br/> Number'+
+            '<input class="form-control" type="text" id="number"/>'+
+            '<br/> Length'+
+            '<input class="form-control" type="text" id="length"/>'+
+            '<br/> Similarity'+
+            '<input class="form-control" type="text" id="similarity"/>'
+            );
+        }
+        function printProteinInterface()
+        {   
+            document.getElementById("input").style.visibility = "visible"; 
+            $("#input").html(
+            '<h3>Protein File</h3>'+
+            '<input type="file" id="file-input" />'+
+            '<p id="file_error"></p>'
+            );
+            
+        }
+        function printTextInterface()
+        {
+            document.getElementById("input").style.visibility = "visible";
+            $("#input").html(
+                '<br/> String 1'+
+                '<input class="form-control" type="text" id="string1" />'+
+                '<br/> String 2'+
+                '<input class="form-control" type="text" id="string2" />'+
+                '<br/>');
+        }
+        
     </script>
 </body>
 

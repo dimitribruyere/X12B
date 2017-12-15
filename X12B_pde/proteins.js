@@ -1,9 +1,6 @@
 //Proteins
 var proteins = [];
 
-//Listenenr for input proteins
-document.getElementById('file-input').addEventListener('change', proteinImport, false);
-
 //Importation of the file with proteins
 function proteinImport(e)
 {
@@ -18,7 +15,6 @@ function proteinImport(e)
   var reader = new FileReader();
   reader.onload = function(e)
   {
-    displayProteins(e.target.result);
     parsing(e.target.result);
   };
   reader.readAsText(file); 
