@@ -1,9 +1,10 @@
-function generator() {
+function generator(algotype, sizeOfDocument) {
 
     this.stringSet1 = [];
     this.stringSet2 = [];
     this.editDistSet = [];
     this.computationTimeSet = [];
+    this.algotype = algotype;
 
     this.generateStrings = function (howMany, length, similarity) {
         for (var i = 0; i < howMany; i++) {
@@ -54,6 +55,32 @@ function generator() {
         var results = "";
         for (var i = 0; i < this.stringSet1.length; i++) {
             computeAlgo = branch_bound(this.stringSet1[i], this.stringSet2[i]);
+            switch (this.algotype)
+            {
+                case "classic":
+                    computeAlgo = classic(this.stringSet1[i], this.stringSet2[i]);
+                    break;
+                case "rec":
+                    computeAlgo = rec(this.stringSet1[i], this.stringSet2[i]);
+                    break;
+                case "divide":
+                    computeAlgo = divide(this.stringSet1[i], this.stringSet2[i]);
+                    break;
+                case "branch":
+                    computeAlgo = branch(this.stringSet1[i], this.stringSet2[i]);
+                    break;
+                case "greedy":
+                    computeAlgo = approx_greedy(this.stringSet1[i], this.stringSet2[i]);
+                    break;
+                case "approx":
+                    var minSize = min(this.stringSet1[i], this.stringSet2[i]);
+                    var maxSize = max(this.stringSet1[i], this.stringSet2[i]);
+                    computeAlgo = approx_classic(this.stringSet1[i], this.stringSet2[i], sizeOfDocument);
+                    break;
+                default:
+                    text = "Error:Algorithm type undefined";
+                    break;
+            }
 
             var editDist = computeAlgo.ed;
             computationTime = computeAlgo.time

@@ -155,7 +155,7 @@
                     var stringLength = document.getElementById("length").value;
                     var similarity = document.getElementById("similarity").value;
                     
-                    var stringGenerator = new generator();
+                    var stringGenerator = new generator(algotype);
                     stringGenerator.generateStrings(howManyStrings, stringLength, similarity);
                     stringGenerator.showStrings();
                 }
@@ -166,7 +166,7 @@
                     var sizeOfDocument = document.getElementById("sizeK").value;
                     
                     customInput = true; // We want to display the matrix 
-                    switch (algotype)
+                    switch (algotype, sizeOfDocument)
                     {
                         case "lcs":
                             text = lcs(texts1, texts2);
